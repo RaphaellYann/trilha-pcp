@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trilha de Implantação PCP — Satiro Consultoria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-2: #F4F4F6;
+  --surface-3: #EAEAEF;
+  --brand-dark: #0B0A26;
+  --primary: #C28954;
+  --primary-l: #D8A575;
+  --primary-dim: rgba(194, 137, 84, 0.12);
+  --primary-border: rgba(194, 137, 84, 0.35);
+  --primary-text: #AB7543;
+  --text: #141434;
+  --text-2: #4E4E63;
+  --text-3: #7A7A8C;
+  --border: rgba(20, 20, 52, 0.15);
+  --green: #3D9E68;
+  --green-dim: rgba(61, 158, 104, 0.12);
+  --green-border: rgba(61, 158, 104, 0.35);
+  --green-text: #2C7D50;
+  --radius: 10px;
+  --radius-sm: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 4rem; }
+.title-condensed { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; }
+.text-uppercase { letter-spacing: .08em; text-transform: uppercase; }
+.container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
+
+.header-top-dark { background: var(--brand-dark); color: #FFF; padding: 1.25rem 2rem; }
+.header-top-inner { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.brand-left { display: flex; align-items: center; gap: 12px; }
+.brand-name img { height: 38px; display: block; object-fit: contain; filter: brightness(0) invert(1); }
+.brand-titles { display: flex; flex-direction: column; }
+.brand-name-txt { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; line-height: 1; margin-bottom: 4px; }
+.brand-sub { font-size: 10.5px; color: #A0A0B0; }
+.brand-right { text-align: right; }
+.brand-consultant { font-size: 13px; font-weight: 600; color: #FFF; }
+.brand-role { font-size: 11px; color: #A0A0B0; margin-top: 2px; }
+
+/* SISTEMA DE ABAS PRINCIPAIS E BOTÕES */
+.main-tabs-bar { background: var(--surface); border-bottom: 2px solid var(--primary); }
+.main-tabs-inner { max-width: 1000px; margin: 0 auto; padding: 0 2rem; display: flex; gap: 1.5rem; overflow-x: auto; }
+.main-tab-btn { background: none; border: none; padding: 14px 8px; font-size: 15px; font-weight: 700; color: var(--text-3); cursor: pointer; border-bottom: 4px solid transparent; font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.02em; transition: 0.2s; display: flex; align-items: center; gap: 8px; margin-bottom: -2px; white-space: nowrap; }
+.main-tab-btn:hover { color: var(--primary); }
+.main-tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+.top-actions { background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 2rem; display: flex; justify-content: flex-end; gap: 10px; }
+.btn-action { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 6px 12px; font-size: 11px; font-weight: 600; color: var(--text-2); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
+.btn-action:hover { background: var(--primary-dim); color: var(--primary-text); border-color: var(--primary-border); }
+
+.main-tab-content { display: none; }
+.main-tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* PROJETO HEADER */
+.project-header { background: var(--surface); padding: 2rem 2rem 1.75rem; max-width: 1000px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem; }
+.ph-brand-small { font-size: 13px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.project-title { font-size: 46px; letter-spacing: .02em; line-height: .95; color: var(--text); text-transform: uppercase; }
+.project-client { font-size: 16px; color: var(--primary); font-weight: 500; margin-top: 8px; }
+
+.meta-fields { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; }
+.meta-field label { font-size: 10px; color: var(--text-3); display: block; margin-bottom: 5px; font-weight: 600; }
+.meta-field input { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 12px; width: 170px; outline: none; }
+
+/* COMPONENTES COMPARTILHADOS */
+.badge { padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 11px; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.05em;}
+.badge-blue { background: #E6F1FB; color: #2A71AA; }
+.badge-teal { background: #E1F5EE; color: #2C7D50; }
+.badge-purple { background: #EEEDFE; color: #5B50D6; }
+.badge-coral { background: #FAEEDA; color: #B95232; }
+.badge-amber { background: #FFFBEA; color: #B97B00; border: 1px solid #FFE4A0; }
+
+.who-tag, .who { font-size: 10px; font-weight: 600; padding: 2px 9px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; display: inline-block;}
+.wc, .who-c { background: var(--primary-dim); color: var(--primary-text); border: 1px solid var(--primary-border); }
+.wd, .who-d { background: rgba(59,139,212,.13); color: #2A71AA; border: 1px solid rgba(59,139,212,.3); }
+.wy, .who-y { background: rgba(216,90,48,.13); color: #B95232; border: 1px solid rgba(216,90,48,.3); }
+.weq { background: var(--surface-3); color: var(--text-2); border: 1px solid var(--border); }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 12px; }
+.card h3 { font-size: 15px; color: var(--text); margin-bottom: 8px; }
+.card p { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+.divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+.congelar-box, .alert-box { border-radius: var(--radius-sm); padding: 14px; margin-bottom: 12px; }
+.congelar-box { background: #FFF4F4; border: 1px solid #FBCACA; margin-top: 16px; }
+.congelar-box h3 { font-size: 13px; font-weight: 600; color: #B3261E; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+.congelar-box p { font-size: 13px; color: #8C1D18; line-height: 1.4; }
+.alert-box { background: #FFFBEA; border: 1px solid #FFE4A0; }
+.alert-box h4 { font-size: 13px; color: #B97B00; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em;}
+.alert-box p { font-size: 13px; color: #8A5C00; line-height: 1.4; }
+
+.step-list { list-style: none; padding: 0; margin: 0; counter-reset: step-counter; }
+.step-list li { display: flex; gap: 12px; margin-bottom: 14px; font-size: 13px; color: var(--text-2); line-height: 1.5; }
+.step-list li:last-child { margin-bottom: 0; }
+.step-list li::before { content: counter(step-counter); counter-increment: step-counter; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; font-size: 12px; }
+.step-list.blue li::before { background: #E6F1FB; color: #2A71AA; }
+.step-list.teal li::before { background: #E1F5EE; color: #2C7D50; }
+.step-list li strong { display: block; color: var(--text); font-size: 13px; margin-bottom: 2px; }
+
+.routine-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.routine-row:last-child { border-bottom: none; padding-bottom: 0; }
+.freq { font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;}
+.freq-s { background: #E6F1FB; color: #2A71AA; }
+.freq-d { background: #E1F5EE; color: #2C7D50; }
+.freq-m { background: #FBEAFA; color: #9A2B93; }
+.routine-text { flex: 1; font-size: 13px; color: var(--text-2); display: flex; flex-direction: column; gap: 4px; }
+.routine-text strong { color: var(--text); font-weight: 600; font-size: 13px; }
+
+.flow-step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 2px; }
+.flow-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.flow-body { display: flex; flex-direction: column; font-size: 13px; color: var(--text-2); padding-top: 6px; }
+.flow-body strong { color: var(--text); font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+.flow-connector { width: 32px; display: flex; justify-content: center; height: 18px; flex-shrink: 0; }
+.flow-line { width: 2px; height: 100%; background: var(--surface-3); }
+
+.kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 16px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+.kpi-header { padding: 14px 16px; background: var(--surface-2); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.kpi-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.kpi-sub { font-size: 12px; color: var(--text-2); margin-top: 2px; }
+.kpi-tags { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.pill-ctrl, .pill-prog, .pill-plan { font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 12px; text-transform: uppercase; }
+.pill-ctrl { background: #FBEAFA; color: #9A2B93; }
+.pill-prog { background: #EAF3DE; color: #4B8512; }
+.pill-plan { background: #E6F1FB; color: #2A71AA; }
+.kpi-body { padding: 16px; }
+.kpi-formula { font-size: 13px; color: var(--text-2); background: #F9F9FA; padding: 12px; border-radius: 6px; margin-bottom: 12px; line-height: 1.5; border: 1px solid var(--border); }
+.kpi-formula strong { color: var(--text); }
+.kpi-row { display: flex; gap: 12px; margin-bottom: 8px; font-size: 13px; align-items: baseline; }
+.kpi-row:last-child { margin-bottom: 0; }
+.kpi-label { font-weight: 600; color: var(--text); min-width: 80px; flex-shrink: 0; }
+.kpi-val { color: var(--text-2); line-height: 1.4; }
+.meta-strip { background: var(--surface-3); padding: 8px 16px; font-size: 11px; color: var(--text-2); display: flex; gap: 16px; flex-wrap: wrap; }
+.meta-strip strong { color: var(--text); font-weight: 600; }
+
+/* ESTILOS ESPECÍFICOS DO KANBAN */
+.kanban-box { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--primary); padding: 16px; border-radius: var(--radius-sm); margin-bottom: 12px; }
+.kb-2 { border-left-color: #2C7D50; }
+.kb-1 { border-left-color: #2A71AA; }
+.impact-pill { font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 12px; background: #E1F5EE; color: #2C7D50; }
+
+/* ABA 1: TRILHA (PROGRESS & STAGES) */
+.progress-section { margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 2rem; }
+.progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .75rem; }
+.progress-label { font-size: 11px; color: var(--text-3); font-weight: 600; }
+.progress-pct { font-size: 36px; color: var(--primary); line-height: 1; transition: color .3s; }
+.progress-pct.done { color: var(--green-text); }
+.prog-track { height: 8px; background: var(--surface-2); border-radius: 4px; border: 1px solid var(--border); overflow: hidden; }
+.prog-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary-l)); transition: width .5s ease; width: 0%; }
+.prog-count { font-size: 12px; color: var(--text-2); margin-top: .625rem; }
+
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; margin-top: 1.25rem; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; text-align: center; }
+.stat-num { font-size: 30px; display: block; transition: color .3s; }
+.stat-num.primary { color: var(--primary); }
+.stat-num.green { color: var(--green-text); }
+.stat-lbl { font-size: 11px; color: var(--text-2); margin-top: 3px; line-height: 1.3; }
+
+.stages-section { margin-top: 2rem; }
+.stages-heading { font-size: 11px; color: var(--text-3); margin-bottom: 1rem; display: flex; align-items: center; gap: .75rem; }
+.stages-heading::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.legend { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0 .5rem; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-3); }
+
+.stage-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: .75rem; overflow: hidden; transition: border-color .25s, box-shadow .25s; }
+.stage-card.in-progress { border-color: var(--primary-border); box-shadow: 0 0 0 1px rgba(194, 137, 84, 0.06) inset; }
+.stage-card.s-done { border-color: var(--green-border); box-shadow: 0 0 0 1px rgba(61,158,104,.06) inset; }
+.stage-head { display: flex; align-items: center; gap: 14px; padding: 14px 18px; cursor: pointer; user-select: none; }
+.stage-head:hover { background: var(--surface-2); }
+.s-num { width: 37px; height: 37px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; background: var(--primary-dim); border: 1px solid var(--primary-border); color: var(--primary-text); }
+.s-num.n-done { background: var(--green-dim); border-color: var(--green-border); color: var(--green-text); }
+.s-info { flex: 1; }
+.s-name { font-size: 14px; font-weight: 600; display: block; }
+.s-visit { font-size: 11px; color: var(--text-2); margin-top: 2px; }
+.s-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.s-done-badge { font-size: 11px; background: var(--green-dim); color: var(--green-text); border: 1px solid var(--green-border); padding: 3px 10px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
+.s-count { font-size: 15px; color: var(--text-2); min-width: 36px; text-align: right; }
+.chev { font-size: 20px; color: var(--text-3); transition: transform .2s; }
+.chev.open { transform: rotate(90deg); }
+.s-mini-track { height: 2px; background: var(--surface-3); }
+.s-mini-fill { height: 100%; background: var(--primary); transition: width .35s ease; }
+.stage-card.s-done .s-mini-fill { background: var(--green); }
+
+.s-tasks { display: none; border-top: 1px solid var(--border); padding: .875rem 1.25rem; }
+.s-tasks.open { display: block; }
+
+.task-container { display: flex; flex-direction: column; margin: 0 -8px; border-bottom: 1px solid var(--border); }
+.task-container:last-child { border-bottom: none; }
+.task-row { display: flex; align-items: flex-start; gap: 12px; padding: 9px 8px; cursor: pointer; border-radius: var(--radius-sm); transition: background .12s; }
+.task-row:hover { background: var(--surface-2); }
+.task-cb { width: 17px; height: 17px; margin-top: 2px; cursor: pointer; accent-color: var(--primary); }
+.task-txt { font-size: 13px; color: var(--text-2); line-height: 1.55; flex: 1; }
+.task-row.t-done .task-txt { text-decoration: line-through; color: var(--text-3); }
+.task-expand { font-size: 18px; color: var(--primary); padding: 0 5px; cursor: pointer; transition: transform 0.2s; display: flex; align-items: center; justify-content: center; }
+.task-expand.open { transform: rotate(90deg); }
+.task-details { display: none; margin: 0 8px 12px 37px; padding: 16px; background: #FAFAFB; border-radius: var(--radius-sm); border: 1px solid var(--border); border-left: 3px solid var(--primary); }
+.task-details.open { display: block; }
+
+/* Animação para destacar a tarefa ao voltar da tela de pendências */
+@keyframes flashWarning {
+  0%, 50% { background-color: #FFF3E0; box-shadow: inset 0 0 0 1px var(--primary); }
+  100% { background-color: transparent; box-shadow: inset 0 0 0 0 transparent; }
+}
+.task-row.highlight-task { animation: flashWarning 2s ease-out forwards; }
+
+/* Editáveis Responsabilidades */
+.section-label { font-size: 11px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+.person-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 12px; }
+.person-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; flex-shrink: 0; }
+.av-c { background: #EEEDFE; color: #5B50D6; }
+.av-d { background: #E6F1FB; color: #2A71AA; }
+.av-y { background: #FAEEDA; color: #B95232; }
+.person-meta p { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.person-meta span { font-size: 11px; color: var(--text-2); display: flex; align-items: center; gap: 4px; }
+.task-list { list-style: none; margin: 0; padding: 0; min-height: 30px; }
+.task-item-edit { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; padding: 4px; border-radius: 4px; transition: background 0.2s; border: 1px dashed transparent; }
+.task-item-edit:hover { background: var(--surface-2); }
+.task-item-edit.drag-over { border-color: var(--primary); background: var(--primary-dim); }
+.drag-handle { cursor: grab; color: var(--text-3); font-size: 16px; padding: 0 4px; user-select: none; }
+.drag-handle:active { cursor: grabbing; }
+.task-editable { flex: 1; font-size: 13px; color: var(--text-2); outline: none; line-height: 1.5; padding: 2px 4px; border: 1px solid transparent; border-radius: 4px; }
+.task-editable:focus { border-color: var(--primary-border); background: var(--surface); color: var(--text); }
+.btn-icon { background: none; border: none; font-size: 14px; color: var(--text-3); cursor: pointer; padding: 2px 6px; border-radius: 4px; }
+.btn-icon:hover { background: #FFE5E5; color: #D92D20; }
+.btn-add-line { background: transparent; border: 1px dashed var(--border); color: var(--text-3); width: 100%; text-align: left; padding: 8px 12px; font-size: 12px; font-weight: 600; border-radius: 4px; cursor: pointer; transition: 0.2s; margin-top: 4px; }
+.btn-add-line:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-dim); }
+
+/* CSS DA ABA 2: TREINAMENTO (MENU LATERAL E CARDS) */
+.content-layout { display: flex; gap: 2rem; align-items: flex-start; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 2rem; }
+.sidebar-nav { flex: 0 0 220px; display: flex; flex-direction: column; gap: 4px; position: sticky; top: 20px; }
+.sidebar-nav button { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; text-align: left; font-size: 13px; font-weight: 600; color: var(--text-2); cursor: pointer; transition: 0.2s; }
+.sidebar-nav button:hover { border-color: var(--primary); color: var(--primary); }
+.sidebar-nav button.active { background: var(--primary); border-color: var(--primary); color: #FFF; }
+.content-area { flex: 1; min-width: 0; }
+.treinamento-section { display: none; }
+.treinamento-section.active { display: block; animation: fadeIn 0.3s ease; }
+
+.cover-header { margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+.cover-header h1 { font-family: 'Barlow Condensed', sans-serif; font-size: 32px; color: var(--text); line-height: 1.1; margin-bottom: 8px; }
+.cover-header p { font-size: 14px; color: var(--text-2); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+
+.pillar { border-left: 4px solid var(--border); padding: 1.25rem; background: var(--surface-2); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin-bottom: 1rem; }
+.pillar h3 { font-size: 14px; margin-bottom: 6px; }
+.pillar p { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+.pillar-plan { border-left-color: #2A71AA; }
+.pillar-plan h3 { color: #2A71AA; }
+.pillar-prog { border-left-color: #2C7D50; }
+.pillar-prog h3 { color: #2C7D50; }
+.pillar-ctrl { border-left-color: #B97B00; }
+.pillar-ctrl h3 { color: #B97B00; }
+
+/* CSS DA ABA 3: PENDÊNCIAS */
+.pending-filter-container { margin: 1.5rem 0; display: flex; align-items: center; gap: 1rem; background: var(--surface-2); padding: 14px 20px; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+.pending-select { padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--surface); outline: none; min-width: 250px; cursor: pointer; transition: 0.2s; }
+.pending-select:focus { border-color: var(--primary); }
+.pending-list { display: flex; flex-direction: column; gap: 12px; }
+.pending-item-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: var(--radius-sm); padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; transition: transform 0.15s; }
+.pending-item-card:hover { transform: translateX(4px); border-color: var(--primary-border); }
+.pending-item-card.pc-c { border-left-color: #5B50D6; } 
+.pending-item-card.pc-d { border-left-color: #2A71AA; } 
+.pending-item-card.pc-y { border-left-color: #B95232; } 
+.pending-item-card.pc-eq { border-left-color: var(--text-3); } 
+.pending-item-stage { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.pending-item-task { font-size: 14px; color: var(--text); font-weight: 500; line-height: 1.4; }
+.empty-state { text-align: center; padding: 4rem 1rem; color: var(--text-3); font-size: 15px; border: 2px dashed var(--border); border-radius: var(--radius-sm); background: var(--surface-2); }
+
+/* Botão de redirecionamento */
+.btn-view-trilha { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 700; color: var(--primary-text); background: var(--primary-dim); border: 1px solid var(--primary-border); padding: 4px 10px; border-radius: 4px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em; transition: 0.2s; }
+.btn-view-trilha:hover { background: var(--primary); color: #FFF; border-color: var(--primary); }
+
+.footer { margin: 2.5rem auto 0; padding: 1.5rem 2rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; max-width: 1000px;}
+.footer-brand { font-size: 17px; color: var(--primary); }
+.footer-info { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+.footer-right { text-align: right; font-size: 11px; color: var(--text-3); line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="header-top-dark">
+  <div class="header-top-inner">
+    <div class="brand-left">
+      <div class="brand-name">
+        <img src="https://static.wixstatic.com/media/295d3c_bd785c3d12584db7b5a6bc3333ffa2ce~mv2.png/v1/fill/w_576,h_154,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Satiro_Marcadagua_Amarelo%20Queimado.png" alt="Logo">
+      <div class="brand-sub text-uppercase title-condensed">Implantação de PPCP · Lean Manufacturing · Gestão da Produção</div>
+      </div>
+    </div>
+    <div class="brand-right">
+      <div class="brand-consultant">Engº Eduardo Satiro Elias</div>
+      <div class="brand-role">Especialista em Gestão Industrial e Manufatura Enxuta</div>
+    </div>
+  </div>
+</div>
+
+<div class="main-tabs-bar">
+  <div class="main-tabs-inner">
+    <button class="main-tab-btn active" onclick="switchMainTab('trilha', this)">📄 Trilha de Implantação</button>
+    <button class="main-tab-btn" onclick="switchMainTab('treinamento', this)">📚 Treinamento PCP</button>
+    <button class="main-tab-btn" onclick="switchMainTab('pendencias', this)">⚠️ Controle de Pendências</button>
+  </div>
+</div>
+
+<div class="top-actions">
+    <button class="btn-action" onclick="exportState()">⬇ Exportar</button>
+    <button class="btn-action" onclick="document.getElementById('import-file').click()">⬆ Importar</button>
+    <input type="file" id="import-file" style="display:none" accept=".json" onchange="importState(event)">
+</div>
+
+<div class="project-header">
+  <div class="ph-left">
+    <div class="ph-brand-small title-condensed">Satiro Consultoria</div>
+    <div class="project-title title-condensed" id="dynamic-title">TRILHA DE<br>IMPLANTAÇÃO</div>
+    <div class="project-client">PCP — Fach Industrial</div>
+  </div>
+  <div class="meta-fields">
+    <div class="meta-field">
+      <label class="title-condensed text-uppercase">Consultor</label>
+      <input type="text" value="Eduardo Satiro Elias">
+    </div>
+    <div class="meta-field">
+      <label class="title-condensed text-uppercase">Data de início</label>
+      <input type="date" id="dt-inicio">
+    </div>
+  </div>
+</div>
+
+<div id="tab-trilha" class="main-tab-content active">
+  <div class="container progress-section">
+    <div class="progress-header">
+      <span class="progress-label title-condensed text-uppercase">Progresso geral da implantação</span>
+      <span class="progress-pct title-condensed" id="pp">0%</span>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="pf"></div></div>
+    <div class="prog-count" id="pc">0 de 36 itens concluídos</div>
+    <div class="stats-grid">
+      <div class="stat-card"><span class="stat-num green title-condensed" id="sv">0</span><div class="stat-lbl">Etapas concluídas</div></div>
+      <div class="stat-card"><span class="stat-num title-condensed">7</span><div class="stat-lbl">Total de etapas</div></div>
+      <div class="stat-card"><span class="stat-num primary title-condensed" id="sv3">0</span><div class="stat-lbl">Itens concluídos</div></div>
+      <div class="stat-card"><span class="stat-num title-condensed">36</span><div class="stat-lbl">Total de itens</div></div>
+    </div>
+  </div>
+
+  <div class="container stages-section">
+    <div class="stages-heading title-condensed">Etapas da implantação</div>
+    <div class="legend">
+      <div class="legend-item"><span class="who-tag wc">Carmen</span> Fach 2 — Fabricação</div>
+      <div class="legend-item"><span class="who-tag wd">Daiane</span> Fach 1 — Carteira</div>
+      <div class="legend-item"><span class="who-tag wy">Yuri</span> Fach 1 — Montagem</div>
+      <div class="legend-item"><span class="who-tag weq">Equipe</span> Todos os envolvidos</div>
+    </div>
+    <div id="stages-container" style="margin-top:.875rem"></div>
+  </div>
+</div>
+
+<div id="tab-treinamento" class="main-tab-content">
+  <div class="container">
+    <div class="content-layout">
+      <div class="sidebar-nav" id="sidebar-nav">
+        <button class="active" onclick="go(0)">Visão geral</button>
+        <button onclick="go(1)">Kanban</button>
+        <button onclick="go(2)">O que é PCP</button>
+        <button onclick="go(3)">Planejamento</button>
+        <button onclick="go(4)">Programação</button>
+        <button onclick="go(5)">Controle</button>
+      </div>
+
+      <div class="content-area">
+        
+        <div class="treinamento-section active" id="ts-0">
+          <div class="cover-header">
+            <h1 class="title-condensed">Plano de implantação — PCP</h1>
+            <p>Fach Industrial &nbsp;·&nbsp; Estrutura mínima para rodar o PCP nas duas unidades</p>
+          </div>
+          <div class="two-col">
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h3>Fach 1</h3><span class="badge badge-blue">Montagem</span></div>
+              <p>Onde o pedido nasce. Carteira de pedidos, análise de itens comprados (comerciais) e montagem final.</p>
+              <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><span class="badge badge-blue">Daiane</span><span class="badge badge-coral">Yuri</span></div>
+            </div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h3>Fach 2</h3><span class="badge badge-teal">Fabricação</span></div>
+              <p>Corte, dobra, usinagem e separação de peças. Análise de matéria-prima e abastecimento da Fach 1.</p>
+              <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><span class="badge badge-purple">Carmen</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Os três pilares que vamos implantar</h3>
+            <div class="divider"></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:4px">
+              <span class="badge badge-blue">Planejamento — o que produzir e quando</span>
+              <span class="badge badge-teal">Programação — como e em que ordem</span>
+              <span class="badge badge-amber">Controle — o que foi feito de verdade</span>
+            </div>
+          </div>
+          <div class="congelar-box">
+            <h3>Principal desafio: congelar a programação</h3>
+            <p>Sem uma programação estável, nenhuma rotina funciona. A implantação começa por aqui: definir um horizonte curto e não mudar o que foi programado sem justificativa formal.</p>
+          </div>
+        </div>
+
+        <div class="treinamento-section" id="ts-1">
+          <p class="section-label">Kanban — prioridade da implantação</p>
+          <div class="card">
+            <h3>Por que o kanban vem primeiro</h3>
+            <p>Hoje a Fach 2 processa cerca de <strong style="color:var(--text)">1.400 ordens por pedido</strong>. Boa parte são peças repetitivas que poderiam ser repostas automaticamente — sem OP, sem fila de análise, sem espera. O kanban elimina a necessidade de emitir uma OP para cada uma dessas peças. Resultado imediato: menos papel, menos fila, menos parada.</p>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:.75rem">
+            <div class="kanban-box kb-2" style="flex:1;min-width:200px;margin:0">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                <h3>Kanban 320 — Fach 2</h3>
+                <span class="impact-pill">−50% de OPs</span>
+              </div>
+              <p>Itens séries 300 e 20 (peças cortadas, dobradas e usinadas que se repetem entre pedidos).</p>
+            </div>
+          </div>
+          
+          <div class="card">
+            <p class="section-label" style="margin-bottom:.5rem">Como vai funcionar</p>
+            <ul class="step-list sl-teal">
+              <li><div><strong>Levantamento dos itens 320</strong> — identificar todos que se repetem entre pedidos com código, descrição e frequência de uso.</div></li>
+              <li><div><strong>Cálculo do ponto de reposição</strong> — lead time de fabricação + consumo médio = quantidade mínima no estoque para acionar o cartão.</div></li>
+              <li><div><strong>Cartão físico por item</strong> — o cartão viaja com o lote de peças. Quando a última peça sai, o cartão vai para o quadro de produção de Carmen.</div></li>
+              <li><div><strong>Carmen programa a reposição</strong> — sem OP formal. Carmen vê o cartão no quadro e inclui a peça na programação da semana automaticamente.</div></li>
+              <li><div><strong>Validação da redução de OPs</strong> — acompanhar a queda no volume de ordens abertas a cada ciclo.</div></li>
+            </ul>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;margin-top:4px;border-top:0.5px solid var(--border)">
+              <span style="font-size:12px;color:var(--text-2)">Responsável pela gestão completa</span>
+              <span class="who who-c">Carmen</span>
+            </div>
+          </div>
+
+          <div class="kanban-box kb-1" style="margin-top:.25rem">
+            <h3>Kanban 220 — Conjuntos (Fach 1)</h3>
+            <p>Conjuntos séries 420, 520 e 500. A gestão dos cartões fica centralizada com Carmen. Yuri apenas sinaliza a necessidade — sem responsabilidade de gerenciar o quadro.</p>
+          </div>
+          
+          <div class="card">
+            <p class="section-label" style="margin-bottom:.5rem">Divisão de papéis</p>
+            <div class="routine-row">
+              <div class="routine-text">
+                <strong>Carmen — gestão centralizada</strong>
+                <span>Define cartões, pontos de reposição e quantidades. Organiza a reposição pela Fach 2. Mantém o quadro atualizado.</span>
+              </div>
+              <span class="who who-c" style="align-self:flex-start;margin-top:2px">Carmen</span>
+            </div>
+            <div class="routine-row">
+              <div class="routine-text">
+                <strong>Yuri — apenas aciona o cartão</strong>
+                <span>Quando o estoque de um conjunto cai abaixo do ponto, Yuri retira o cartão e entrega para Carmen. Sem responsabilidade de gestão do quadro.</span>
+              </div>
+              <span class="who who-y" style="align-self:flex-start;margin-top:2px">Yuri</span>
+            </div>
+            <p style="font-size:12px;color:var(--text-3);margin-top:10px">O kanban 220 será implantado após a estabilização do kanban 320.</p>
+          </div>
+        </div>
+
+        <div class="treinamento-section" id="ts-2">
+          <p class="section-label">Treinamento</p>
+          <div class="card" style="margin-bottom:.75rem">
+            <h3>Por que precisamos do PCP?</h3>
+            <p>Sem PCP, cada um trabalha no "apagar incêndio". Com PCP, a equipe sabe <strong>o que produzir</strong>, <strong>quando entregar</strong> e <strong>o que está atrasado</strong> — antes do cliente reclamar.</p>
+          </div>
+          <div class="pillar pillar-plan"><h3>Planejamento</h3><p><strong>O que é:</strong> Olhar para a carteira de pedidos e decidir o que vai ser feito nas próximas semanas e no mês.<br><strong>Objetivo:</strong> Garantir material, capacidade e prazo antes de iniciar a produção.</p></div>
+          <div class="pillar pillar-prog"><h3>Programação</h3><p><strong>O que é:</strong> Colocar na ordem certa as tarefas de cada setor para a semana e para o dia.<br><strong>Objetivo:</strong> Dizer para a fábrica "hoje você faz isso, nessa sequência" — e manter essa sequência.</p></div>
+          <div class="pillar pillar-ctrl"><h3>Controle</h3><p><strong>O que é:</strong> Comparar o que foi programado com o que foi realmente produzido.<br><strong>Objetivo:</strong> Identificar atrasos cedo, corrigir antes de virar problema e melhorar o planejamento futuro.</p></div>
+        </div>
+
+        <div class="treinamento-section" id="ts-3">
+          <p class="section-label">Rotinas de planejamento — o que e quando produzir</p>
+          <div class="pillar pillar-plan" style="margin-bottom:1rem"><h3>Objetivo do planejamento</h3><p>Garantir que, antes de a semana começar, a equipe saiba quais pedidos serão produzidos, se há material disponível e se a capacidade é suficiente.</p></div>
+          <div class="card">
+            <div class="routine-row"><span class="freq freq-m">Mensal</span><div class="routine-text"><strong>Revisão da carteira de pedidos</strong><span>Listar todos os pedidos em aberto, datas de entrega e prioridades do mês.</span></div><span class="who who-d">Daiane</span></div>
+            <div class="routine-row"><span class="freq freq-m">Mensal</span><div class="routine-text"><strong>Análise de capacidade</strong><span>Verificar se a fábrica tem horas disponíveis para atender o volume do mês.</span></div><span class="who who-c">Carmen</span></div>
+            <div class="routine-row"><span class="freq freq-s">Semanal</span><div class="routine-text"><strong>Revisão de pedidos prioritários</strong><span>Toda segunda-feira: selecionar os pedidos da semana e confirmar materiais disponíveis.</span></div><span class="who who-d">Daiane</span></div>
+            <div class="routine-row"><span class="freq freq-s">Semanal</span><div class="routine-text"><strong>Alinhamento Fach 1 ↔ Fach 2</strong><span>Reunião rápida (15 min) para alinhar necessidade de peças da semana.</span></div><span class="who who-c">Carmen</span></div>
+            <div class="routine-row"><span class="freq freq-s">Semanal</span><div class="routine-text"><strong>Gestão do quadro de kanbam</strong><span>Atualizar prioridades da semana. Garantir que os cartões estejam corretos.</span></div><span class="who who-c">Carmen</span></div>
+          </div>
+        </div>
+
+        <div class="treinamento-section" id="ts-4">
+          <p class="section-label">Rotinas de programação — como e em que ordem produzir</p>
+          <div class="pillar pillar-prog" style="margin-bottom:1rem"><h3>Objetivo da programação</h3><p>Definir a sequência de produção de cada setor para a semana e para o dia. A programação precisa ser respeitada — mudanças constantes destroem o ritmo da fábrica.</p></div>
+          <div class="card">
+            <div class="routine-row"><span class="freq freq-s">Semanal</span><div class="routine-text"><strong>Programação semanal da Fach 2</strong><span>Sequência de corte, dobra e usinagem para cada OP da semana. <em>Travada toda segunda.</em></span></div><span class="who who-c">Carmen</span></div>
+            <div class="routine-row"><span class="freq freq-s">Semanal</span><div class="routine-text"><strong>Programação semanal da Fach 1</strong><span>Sequência de montagem conforme disponibilidade de peças da Fach 2.</span></div><span class="who who-y">Yuri</span></div>
+            <div class="routine-row"><span class="freq freq-d">Diária</span><div class="routine-text"><strong>Abertura de OP</strong><span>Registrar abertura das ordens que entram em produção no dia.</span></div><span class="who who-y">Yuri</span></div>
+            <div class="routine-row"><span class="freq freq-d">Diária</span><div class="routine-text"><strong>Confirmação de sequência diária — Fach 2</strong><span>Manhã: Carmen confirma com os setores a ordem do dia.</span></div><span class="who who-c">Carmen</span></div>
+            <div class="routine-row"><span class="freq freq-d">Diária</span><div class="routine-text"><strong>Registro de liberação de peças</strong><span>Registrar quando um lote é liberado da Fach 2 para a Fach 1.</span></div><span class="who who-c">Carmen</span></div>
+          </div>
+          <div class="congelar-box"><h3>Como congelar a programação na prática</h3><p>1. Programação definida toda <strong>segunda até as 10h</strong>.<br>2. Qualquer alteração exige <strong>autorização por escrito</strong> (mensagem registrada).<br>3. Motivo obrigatório — serve para melhorar o planejamento futuro.<br>4. Carmen avisa o PCP da Fach 1 se houver risco de atraso.</p></div>
+        </div>
+
+        <div class="treinamento-section" id="ts-5">
+          <p class="section-label">Rotinas de controle — o que foi feito de verdade</p>
+          <div class="pillar pillar-ctrl" style="margin-bottom:1rem"><h3>Objetivo do controle</h3><p>Comparar o que foi programado com o que saiu da fábrica. Identificar atrasos cedo e registrar motivos. Sem controle, o planejamento não melhora nunca.</p></div>
+          <div class="card">
+            <div class="routine-row"><span class="freq freq-d">Diária</span><div class="routine-text"><strong>Apontamento de produção — Fach 2</strong><span>O que foi produzido no dia: quantidade e OP por setor.</span></div><span class="who who-c">Carmen</span></div>
+            <div class="routine-row"><span class="freq freq-d">Diária</span><div class="routine-text"><strong>Apontamento de produção — Fach 1</strong><span>Avanço de montagem: quais OPs foram fechadas ou avançaram no dia.</span></div><span class="who who-y">Yuri</span></div>
+            <div class="routine-row"><span class="freq freq-d">Diária</span><div class="routine-text"><strong>Registro de paradas e desvios</strong><span>Toda vez que a production parou ou mudou de sequência, com motivo obrigatório.</span></div><span class="who who-c">Carmen</span></div>
+            <div class="routine-row"><span class="freq freq-s">Semanal</span><div class="routine-text"><strong>Reunião de fechamento semanal</strong><span>Sexta-feira: o que foi entregue, o que ficou em aberto e os motivos. 20 minutos.</span></div><span class="who who-d">Daiane</span></div>
+            <div class="routine-row"><span class="freq freq-s">Semanal</span><div class="routine-text"><strong>Indicador de aderência à programação</strong><span>Calcular % de OPs entregues na data programada.</span></div><span class="who who-c">Carmen</span></div>
+            <div class="routine-row"><span class="freq freq-m">Mensal</span><div class="routine-text"><strong>Relatório mensal ao gestor</strong><span>Volume produzido, principais atrasos, indicadores e ações de melhoria.</span></div><span class="who who-d">Daiane</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-pendencias" class="main-tab-content">
+  <div class="container" style="padding-top:2rem">
+    <div class="cover-header">
+      <h1 class="title-condensed">Controle de Pendências</h1>
+      <p>Acompanhe e filtre os itens não concluídos (sem check) da Trilha de Implantação.</p>
+    </div>
+    
+    <div class="pending-filter-container">
+      <label style="font-size:13px; font-weight:600; color:var(--text-2)">Filtrar tarefas por responsável:</label>
+      <select class="pending-select" id="filter-who" onchange="renderPendencias(this.value)">
+        <option value="all">Ver Todas as Pendências</option>
+        <option value="c">Carmen</option>
+        <option value="d">Daiane</option>
+        <option value="y">Yuri</option>
+        <option value="eq">Equipe</option>
+      </select>
+    </div>
+
+    <div class="pending-list" id="pending-list-container">
+      </div>
+  </div>
+</div>
+
+<div class="container footer">
+  <div><div class="footer-brand title-condensed">SATIRO CONSULTORIA</div><div class="footer-info">satiroconsultoria.com · satiroelias@gmail.com · (48) 9 3618-2977</div></div>
+  <div class="footer-right">Documento de uso exclusivo do cliente<br>© 2026 Satiro Consultoria</div>
+</div>
+
+<script>
+// Lógica de Abas Principais e Título Dinâmico
+function switchMainTab(tabId, btnContext) {
+    document.querySelectorAll('.main-tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.main-tab-btn').forEach(el => el.classList.remove('active'));
+    
+    document.getElementById('tab-' + tabId).classList.add('active');
+    btnContext.classList.add('active');
+    
+    const titleEl = document.getElementById('dynamic-title');
+    if (tabId === 'treinamento') {
+        titleEl.innerHTML = 'TREINAMENTO<br>PCP';
+    } else if (tabId === 'pendencias') {
+        titleEl.innerHTML = 'CONTROLE DE<br>PENDÊNCIAS';
+        // Renderiza as pendências baseadas no valor atual do filtro
+        renderPendencias(document.getElementById('filter-who').value);
+    } else {
+        titleEl.innerHTML = 'TRILHA DE<br>IMPLANTAÇÃO';
+    }
+}
+
+// Lógica de Navegação Lateral (Aba Treinamento)
+function go(index) {
+    document.querySelectorAll('.sidebar-nav button').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.treinamento-section').forEach(el => el.classList.remove('active'));
+    
+    document.querySelectorAll('.sidebar-nav button')[index].classList.add('active');
+    document.getElementById('ts-' + index).classList.add('active');
+}
+
+// Lógica de Redirecionamento da Pendência para a Trilha
+function goToTaskInTrilha(stageId, taskIndex) {
+    // 1. Mudar para a aba Trilha
+    const btnTrilha = document.querySelector('.main-tab-btn[onclick*="trilha"]');
+    switchMainTab('trilha', btnTrilha);
+
+    // 2. Expandir a etapa caso esteja fechada
+    if (!state.exp[stageId]) {
+        toggleStage(stageId);
+    }
+
+    // 3. Aguardar renderização e rolar até a tarefa, aplicando o highlight
+    setTimeout(() => {
+        const taskRow = document.getElementById(`row_${stageId}_${taskIndex}`);
+        if (taskRow) {
+            taskRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Remove a classe caso ela já exista de um clique anterior
+            taskRow.classList.remove('highlight-task');
+            // Força o reflow do navegador para reiniciar a animação
+            void taskRow.offsetWidth; 
+            // Aplica a classe para iniciar o flashWarning
+            taskRow.classList.add('highlight-task');
+            
+            // Remove após o fim da animação
+            setTimeout(() => taskRow.classList.remove('highlight-task'), 2000);
+        }
+    }, 150);
+}
+
+// DADOS ESTÁTICOS DA TRILHA (ESTRUTURA COMPLETA E INTACTA)
+
+const S = [
+  {id:1,name:'Alinhamento e base',visit:'Visita 1', tasks:[
+    { 
+      t:'Apresentar o fluxo do pedido (Fach 1 → Fach 2 → Fach 1) para as 3 pessoas', 
+      w:'eq', 
+      details: `
+        <div class="section" id="s2">
+          <p class="section-label">Fluxo do pedido</p>
+          <div class="flow-step"><div class="flow-icon" style="background:#E6F1FB">📋</div><div class="flow-body"><strong>Pedido entra na carteira — Fach 1</strong><span>Daiane gera a OP. Yuri faz a análise de itens comprados imediatamente.</span></div></div>
+          <div class="flow-step"><div class="flow-connector"><div class="flow-line"></div></div></div>
+          <div class="flow-step"><div class="flow-icon" style="background:#EEEDFE">📤</div><div class="flow-body"><strong>Necessidade de peças — Fach 1 → Fach 2</strong><span>Fach 1 informa quais peças precisa com prazo. Fach 2 verifica o kanban e a programação.</span></div></div>
+          <div class="flow-step"><div class="flow-connector"><div class="flow-line"></div></div></div>
+          <div class="flow-step"><div class="flow-icon" style="background:#E1F5EE">⚙️</div><div class="flow-body"><strong>Fabricação — Fach 2</strong><span>Carmen programa corte → dobra → usinagem. Peças kanban 320 entram automaticamente. Demais entram por programação semanal.</span></div></div>
+          <div class="flow-step"><div class="flow-connector"><div class="flow-line"></div></div></div>
+          <div class="flow-step"><div class="flow-icon" style="background:#FAEEDA">📦</div><div class="flow-body"><strong>Separação e envio — Fach 2 → Fach 1</strong><span>Peças separadas por pedido e enviadas conforme prioridade da programação.</span></div></div>
+          <div class="flow-step"><div class="flow-connector"><div class="flow-line"></div></div></div>
+          <div class="flow-step"><div class="flow-icon" style="background:#EAF3DE">🔩</div><div class="flow-body"><strong>Montagem — Fach 1</strong><span>Conjuntos 200 e itens comerciais (código 80). Yuri acompanha o avanço por pedido.</span></div></div>
+          <div class="flow-step"><div class="flow-connector"><div class="flow-line"></div></div></div>
+          <div class="flow-step"><div class="flow-icon" style="background:#E6F1FB">✅</div><div class="flow-body"><strong>Pedido concluído</strong><span>Registro de encerramento. Dados alimentam os indicadores da semana.</span></div></div>
+          <div class="congelar-box">
+            <h3>Ponto crítico: congelamento da programação</h3>
+            <p>A programação da semana é travada toda segunda-feira. Mudanças só com autorização formal e motivo registrado.</p>
+          </div>
+        </div>
+      ` 
+    },
+    { t:'Mapear a carteira de pedidos em aberto e identificar prioridades críticas', w:'d' },
+    { t:'Definir formalmente os papéis: Daiane (carteira), Yuri (montagem e comprados), Carmen (fabricação e kanban)', w:'eq', dynamicRef: 'responsabilidades' },
+    { t:'Apresentar a lógica do kanban e o impacto esperado na redução de OPs', w:'eq' },
+    { t:'Levantar lista preliminar de itens série 320 que entrarão no kanban', w:'c' },
+  ]},
+  {id:2,name:'Kanban 320 — Fach 2',visit:'Visitas 1 e 2', tasks:[
+    {t:'Identificar todos os itens 320 que se repetem entre pedidos com código e frequência',w:'c'},
+    {t:'Calcular ponto de reposição e quantidade de cartões por item',w:'c'},
+    {t:'Criar os cartões físicos do kanban (etiqueta com código, descrição e quantidade)',w:'c'},
+    {t:'Montar e fixar o quadro de kanban na Fach 2 (colunas: A fabricar | Em produção | Concluído)',w:'c'},
+    {t:'Treinar Carmen na gestão do quadro: quando acionar, como repor sem emitir OP',w:'c'},
+    {t:'Realizar primeiro ciclo completo do kanban 320 em operação',w:'c'},
+    {t:'Validar redução no volume de OPs abertas na Fach 2 (meta: −50%)',w:'d'},
+  ]},
+  {id:3,name:'Análise de comprados',visit:'Visita 2', tasks:[
+    {
+      t:'Fach 1: implantar análise de itens comerciais (código 80) a cada OP gerada por Daiane',
+      w:'y',
+      details: `
+        <div class="section" id="s6">
+          <p class="section-label">Análise de demanda de itens comprados</p>
+
+          <div class="comp-header comp-fach1">
+            <h3>Fach 1 — Itens comerciais (código 80)</h3>
+            <p>Rolamentos, parafusos, vedações, motores, componentes elétricos e demais itens comprados prontos para montagem. A análise acontece no momento da geração da OP.</p>
+          </div>
+          <div class="card">
+            <p class="section-label" style="margin-bottom:.5rem">Como analisar — passo a passo</p>
+            <ul class="step-list blue">
+              <li><div><strong>Abrir a lista de materiais (LM) da OP</strong><br>Para cada pedido que entrar na carteira, acessar a lista completa de itens — incluindo todos os códigos 80 necessários para a montagem.</div></li>
+              <li><div><strong>Verificar o estoque disponível</strong><br>Para cada item da lista, conferir manualmente (ou no ERP) a quantidade em estoque. Se o ERP for fraco, manter uma planilha de controle de estoque de itens comerciais atualizada semanalmente.</div></li>
+              <li><div><strong>Calcular a necessidade líquida</strong><br>Necessidade = quantidade da LM menos o que está em estoque. Se o resultado for positivo, precisa comprar. Se for zero ou negativo, está coberto.</div></li>
+              <li><div><strong>Verificar o prazo de entrega do fornecedor</strong><br>Para cada item que precisa comprar, verificar o lead time do fornecedor. Exemplo: item com lead time de 10 dias úteis precisa ser pedido 10 dias antes da data prevista de montagem.</div></li>
+              <li><div><strong>Gerar a solicitação de compra</strong><br>Emitir a solicitação com: código do item, quantidade, data de entrega necessária e OP de referência. Entregar ao comprador ou registrar no sistema.</div></li>
+              <li><div><strong>Acompanhar o pedido de compra até o recebimento</strong><br>Verificar na reunião semanal se os itens críticos foram recebidos. Alertar montagem se houver risco de atraso.</div></li>
+            </ul>
+          </div>
+          <div class="alert-box">
+            <h4>Quando fazer esta análise</h4>
+            <p>Assim que o pedido for confirmado pelo cliente — não na véspera da montagem. O atraso na análise de comprados é uma das causas mais comuns de parada de linha.</p>
+          </div>
+          <div class="card" style="margin-bottom:.75rem">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3>Responsável</h3><span class="who who-y">Yuri</span></div>
+            <p>Yuri realiza a análise de comprados assim que a OP é gerada por Daiane. Casos críticos (lead time longo ou itens indisponíveis) são sinalizados imediatamente para Daiane.</p>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="comp-header comp-fach2" style="margin-top:.75rem">
+            <h3>Fach 2 — Matéria-prima (chapas, tubos, barras e perfis)</h3>
+            <p>Materiais brutos usados no corte, dobra e usinagem. A análise é feita antes de iniciar a programação da semana, garantindo que a fábrica não pare por falta de material.</p>
+          </div>
+          <div class="card">
+            <p class="section-label" style="margin-bottom:.5rem">Como analisar — passo a passo</p>
+            <ul class="step-list teal">
+              <li><div><strong>Receber a lista de peças da semana (séries 300 e 20)</strong><br>Com base na programação semanal, levantar todos os roteiros de fabricação que entrarão em produção. Identificar quais materiais brutos cada peça consome (tipo, espessura, bitola, dimensão).</div></li>
+              <li><div><strong>Consolidar o consumo total de matéria-prima</strong><br>Somar o total de cada material necessário para a semana. Exemplo: "preciso de 12 chapas 3mm, 4 barras redondas 50mm e 6 metros de tubo 2". Planilha simples — uma linha por material.</div></li>
+              <li><div><strong>Verificar o estoque físico de MP</strong><br>Conferir o estoque real no almoxarifado — peso, comprimento ou quantidade, conforme o material. Se o ERP não for confiável, a conferência física semanal é obrigatória.</div></li>
+              <li><div><strong>Calcular a necessidade de reposição</strong><br>Necessidade = consumo da semana menos estoque disponível. Considerar também o estoque mínimo de segurança (ex: sempre manter 2 chapas de cada tipo mais consumido como reserva).</div></li>
+              <li><div><strong>Gerar a solicitação de compra de MP</strong><br>Emitir com: tipo e especificação do material, quantidade, unidade (kg, metro, unidade), data de entrega necessária e referência das OPs que dependem desse material.</div></li>
+              <li><div><strong>Acompanhar o recebimento antes do início da produção</strong><br>Se o material não chegar no prazo, Carmen deve replanejar a sequência de produção da semana e comunicar a Daiane para ajustar prioridades de montagem.</div></li>
+            </ul>
+          </div>
+          <div class="alert-box">
+            <h4>Frequência e momento ideal</h4>
+            <p>A análise de MP deve ser feita toda <strong>sexta-feira à tarde</strong> para a semana seguinte — ou seja, antes de a programação ser travada na segunda. Assim há tempo hábil para acionar o fornecedor caso falte material.</p>
+          </div>
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3>Responsável</h3><span class="who who-c">Carmen</span></div>
+            <p>Carmen realiza a análise toda sexta-feira. A solicitação de compra gerada é encaminhada para o comprador (ou Daiane, conforme o fluxo atual). Qualquer risco de falta na semana seguinte é comunicado na reunião de fechamento — que acontece também na sexta.</p>
+          </div>
+        </div>
+      `
+    },
+    {t:'Treinar Yuri no cálculo de necessidade líquida: quantidade da LM menos estoque disponível',w:'y'},
+    {t:'Fach 2: implantar análise de matéria-prima toda sexta-feira à tarde',w:'c'},
+    {t:'Configurar planilha Google Sheets de controle de compras (uma para cada fábrica)',w:'eq'},
+    {t:'Definir regra: item com risco de atraso vai direto para Daiane no mesmo dia',w:'d'},
+  ]},
+  {id:4,name:'Programação congelada',visit:'Visitas 2 e 3', tasks:[
+    {
+      t:'Comunicar a regra de congelamento para toda a equipe: segunda até 10h, mudança só com justificativa registrada',
+      w:'d',
+      details: `
+        <div class="section" id="s3">
+          <p class="section-label">Programação</p>
+          <div class="congelar-box">
+            <h3>Regra de ouro: programação congelada</h3>
+            <p>Toda segunda-feira até as 10h a programação da semana está travada para as duas fábricas. Mudança só com justificativa registrada por escrito. Isso protege a sequência e dá previsibilidade.</p>
+          </div>
+          <div class="card">
+            <h3>Rotinas</h3>
+            <div class="routine-row"><span class="freq freq-s">Semanal</span><div class="routine-text"><strong>Programação da Fach 2 — segunda até 10h</strong><span>Carmen define sequência de corte, dobra e usinagem para cada pedido da semana.</span></div><span class="who who-c">Carmen</span></div>
+            <div class="routine-row"><span class="freq freq-s">Semanal</span><div class="routine-text"><strong>Programação da Fach 1 — segunda até 10h</strong><span>Yuri define sequência de montagem conforme peças disponíveis e a vir da Fach 2.</span></div><span class="who who-y">Yuri</span></div>
+            <div class="routine-row"><span class="freq freq-d">Diária</span><div class="routine-text"><strong>Confirmação da sequência do dia</strong><span>Carmen confirma com os setores a ordem do dia e registra qualquer desvio.</span></div><span class="who who-c">Carmen</span></div>
+            <div class="routine-row"><span class="freq freq-d">Diária</span><div class="routine-text"><strong>Liberação de peças Fach 2 → Fach 1</strong><span>Carmen registra quando um lote de peças é liberado para a Fach 1 (grupo WhatsApp ou planilha).</span></div><span class="who who-c">Carmen</span></div>
+            <div class="routine-row"><span class="freq freq-s">Semanal</span><div class="routine-text"><strong>Reunião de fechamento — sexta</strong><span>20 minutos. O que foi concluído, o que ficou em aberto e os motivos. Daiane conduz.</span></div><span class="who who-d">Daiane</span></div>
+          </div>
+
+          <p class="section-label" style="margin-top:.25rem">Apontamento simplificado</p>
+          <div class="card">
+            <h3>O que registrar — só o essencial</h3>
+            <p style="margin-bottom:12px; font-size:13px; color:var(--text-2);">O apontamento não precisa ser complexo. Objetivo neste momento: saber o que foi produzido e dar baixa no material. Nada mais.</p>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;gap:10px;align-items:center;padding:8px;background:var(--surface-2);border-radius:var(--radius-sm)">
+                <span style="font-size:16px;min-width:24px;text-align:center;font-weight:bold;">1</span>
+                <div><p style="font-size:13px;font-weight:600;color:var(--text);margin:0">Item entrou em produção</p><p style="font-size:12px;color:var(--text-2);margin:0">Número da OP + data de início</p></div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:center;padding:8px;background:var(--surface-2);border-radius:var(--radius-sm)">
+                <span style="font-size:16px;min-width:24px;text-align:center;font-weight:bold;">2</span>
+                <div><p style="font-size:13px;font-weight:600;color:var(--text);margin:0">Item foi concluído</p><p style="font-size:12px;color:var(--text-2);margin:0">OP + data de conclusão + quantidade produzida</p></div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:center;padding:8px;background:var(--surface-2);border-radius:var(--radius-sm)">
+                <span style="font-size:16px;min-width:24px;text-align:center;font-weight:bold;">3</span>
+                <div><p style="font-size:13px;font-weight:600;color:var(--text);margin:0">Material baixado</p><p style="font-size:12px;color:var(--text-2);margin:0">Confirmar saída do material do estoque</p></div>
+              </div>
+            </div>
+            <p style="font-size:12px;color:var(--text-3);margin-top:12px;padding-top:12px;border-top:0.5px solid var(--border)">Ferramenta sugerida: Google Forms no celular. O operador preenche em menos de 1 minuto. Alimenta uma planilha automaticamente.</p>
+          </div>
+        </div>
+      `
+    },
+    {t:'Configurar planilha de programação semanal da Fach 2 no Google Sheets — Carmen',w:'c'},
+    {t:'Configurar planilha de programação semanal da Fach 1 no Google Sheets — Yuri',w:'y'},
+    {t:'Realizar primeiro ciclo de programação sem alterações não autorizadas',w:'eq'},
+    {t:'Auditar na visita seguinte: quantas OPs saíram da sequência programada e por quê',w:'d'},
+  ]},
+  {id:5,name:'Apontamento simplificado',visit:'Visitas 3 e 4', tasks:[
+    {t:'Criar formulário Google Forms no celular: entrada em produção + conclusão + baixa de material',w:'eq'},
+    {t:'Treinar equipe: apenas 3 campos — OP, status (entrada/conclusão), quantidade',w:'eq'},
+    {t:'Realizar primeiro ciclo completo de apontamentos nas duas fábricas',w:'eq'},
+    {t:'Validar consistência: o que foi apontado bate com o que foi produzido e liberado',w:'c'},
+  ]},
+  {id:6,name:'Kanban 220 — Fach 1',visit:'Visitas 4 e 5', tasks:[
+    {t:'Levantar os conjuntos 220 (séries 420, 520, 500) que entrarão no kanban',w:'c'},
+    {t:'Carmen define cartões, pontos de reposição e quantidades sem envolvimento de Yuri',w:'c'},
+    {t:'Montar o quadro físico do kanban 220 na Fach 1',w:'c'},
+    {t:'Treinar Yuri para acionar os cartões corretamente: apenas retirar e entregar para Carmen',w:'y'},
+    {t:'Realizar primeiro ciclo do kanban 220 em operação com Carmen gerenciando',w:'c'},
+  ]},
+  {id:7,name:'Indicadores e autonomia',visit:'Visita 5', tasks:[
+    {
+      t:'5 indicadores configurados e preenchidos pela equipe sem apoio externo',
+      w:'eq',
+      details: `
+        <div class="section" id="s7">
+          <p class="section-label">Indicadores</p>
+          <div class="card" style="margin-bottom:1rem">
+            <h3>Princípio</h3>
+            <p style="font-size:13px; color:var(--text-2); margin-top:4px;">Todos os indicadores são calculados em planilha simples. O dado bruto é coletado durante as rotinas já existentes. Nenhum indicador exige mais de 10 minutos para ser calculado.</p>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div><div class="kpi-title">Pontualidade de entrega ao cliente</div><div class="kpi-sub">% de pedidos concluídos no prazo acordado</div></div>
+              <div class="kpi-tags"><span class="pill-ctrl">Controle</span><span class="who who-d" style="margin-left:4px">Daiane</span></div>
+            </div>
+            <div class="kpi-body">
+              <div class="kpi-formula"><strong>Cálculo:</strong> Pedidos concluídos no prazo ÷ Total de pedidos concluídos no período × 100<br><strong>Exemplo:</strong> 7 de 10 pedidos concluídos no prazo = 70% · <strong>Meta inicial:</strong> acima de 80%</div>
+              <div class="kpi-row"><span class="kpi-label">Coleta</span><span class="kpi-val">Reunião de fechamento semanal: quais pedidos foram encerrados e se ficaram dentro do prazo.</span></div>
+              <div class="kpi-row"><span class="kpi-label">Frequência</span><span class="kpi-val">Mensal — consolidado ao final de cada mês (não semanal, pois não há entrega toda semana)</span></div>
+            </div>
+            <div class="meta-strip"><span>Ferramenta: <strong>Planilha de pedidos</strong></span><span>Dado de entrada: <strong>data de conclusão vs data prometida</strong></span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div><div class="kpi-title">Aderência à programação</div><div class="kpi-sub">% de OPs executadas na semana em que foram programadas</div></div>
+              <div class="kpi-tags"><span class="pill-prog">Programação</span><span class="who who-c" style="margin-left:4px">Carmen</span></div>
+            </div>
+            <div class="kpi-body">
+              <div class="kpi-formula"><strong>Cálculo:</strong> OPs executadas no prazo ÷ OPs programadas para a semana × 100<br><strong>Exemplo:</strong> 8 de 10 OPs feitas na semana certa = 80% · <strong>Meta inicial:</strong> acima de 75%</div>
+              <div class="kpi-row"><span class="kpi-label">Coleta</span><span class="kpi-val">Carmen compara o que foi programado na segunda com o que foi realmente executado até sexta.</span></div>
+              <div class="kpi-row"><span class="kpi-label">Frequência</span><span class="kpi-val">Semanal — calculado toda sexta no fechamento</span></div>
+            </div>
+            <div class="meta-strip"><span>Ferramenta: <strong>Planilha de programação</strong></span><span>Dado de entrada: <strong>programado vs realizado</strong></span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div><div class="kpi-title">Cobertura de matéria-prima</div><div class="kpi-sub">Quantas semanas o estoque atual cobre</div></div>
+              <div class="kpi-tags"><span class="pill-plan">Planejamento</span><span class="who who-c" style="margin-left:4px">Carmen</span></div>
+            </div>
+            <div class="kpi-body">
+              <div class="kpi-formula"><strong>Cálculo:</strong> Estoque atual (kg ou unidades) ÷ Consumo médio semanal<br><strong>Exemplo:</strong> 240 kg em estoque ÷ 80 kg/semana = 3 semanas de cobertura · <strong>Meta mínima:</strong> acima de 1,5 semana</div>
+              <div class="kpi-row"><span class="kpi-label">Coleta</span><span class="kpi-val">Levantamento físico toda sexta, durante a análise de MP (já é uma rotina existente).</span></div>
+              <div class="kpi-row"><span class="kpi-label">Frequência</span><span class="kpi-val">Semanal</span></div>
+            </div>
+            <div class="meta-strip"><span>Ferramenta: <strong>Planilha de análise de MP</strong></span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div><div class="kpi-title">Pedidos com compra em atraso</div><div class="kpi-sub">Quantidade de OPs aguardando item comprado não recebido</div></div>
+              <div class="kpi-tags"><span class="pill-plan">Planejamento</span><span class="who who-y" style="margin-left:4px">Yuri</span></div>
+            </div>
+            <div class="kpi-body">
+              <div class="kpi-formula"><strong>Cálculo:</strong> Número de OPs paradas por falta de item comprado<br><strong>Meta:</strong> zero — qualquer número acima de zero exige ação imediata e comunicação a Daiane</div>
+              <div class="kpi-row"><span class="kpi-label">Coleta</span><span class="kpi-val">Yuri verifica semanalmente as solicitações abertas com data vencida na planilha de compras.</span></div>
+              <div class="kpi-row"><span class="kpi-label">Frequência</span><span class="kpi-val">Semanal — apresentado na reunião de sexta</span></div>
+            </div>
+            <div class="meta-strip"><span>Ferramenta: <strong>Planilha de controle de compras</strong></span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div><div class="kpi-title">Volume de OPs encerradas</div><div class="kpi-sub">Tendência de produtividade geral da fábrica</div></div>
+              <div class="kpi-tags"><span class="pill-ctrl">Controle</span><span class="who who-d" style="margin-left:4px">Daiane</span></div>
+            </div>
+            <div class="kpi-body">
+              <div class="kpi-formula"><strong>Cálculo:</strong> Contagem de OPs encerradas na semana (Fach 1 e Fach 2 separadas)<br><strong>Acompanhar:</strong> tendência — queda de uma semana para outra pede investigação de causa</div>
+              <div class="kpi-row"><span class="kpi-label">Coleta</span><span class="kpi-val">Yuri e Carmen apontam diariamente. Daiane consolida na sexta.</span></div>
+              <div class="kpi-row"><span class="kpi-label">Frequência</span><span class="kpi-val">Semanal — consolidado por Daiane</span></div>
+            </div>
+            <div class="meta-strip"><span>Ferramenta: <strong>Planilha consolidada semanal</strong></span><span>Dado de entrada: <strong>apontamento diário de OPs</strong></span></div>
+          </div>
+        </div>
+      `
+    },
+    {t:'Reunião de fechamento semanal (sexta) operando de forma autônoma — Daiane conduz',w:'d'},
+    {t:'Kanban 320 operando de forma estável com reposição sem emissão de OP',w:'c'},
+    {t:'Kanban 220 operando com Yuri acionando e Carmen gerenciando',w:'c'},
+    {t:'Pedidos com prazo de conclusão previsível comunicado ao cliente',w:'d'},
+  ]}
+];
+
+const whoMap = {c:'wc', d:'wd', y:'wy', eq:'weq'};
+const whoLbl = {c:'Carmen', d:'Daiane', y:'Yuri', eq:'Equipe'};
+const TOTAL = 36; 
+
+// ESTADO GLOBAL MÚTAVEL (CARREGADO DO LOCAL STORAGE)
+let state = {
+  chk: {}, 
+  exp: {},
+  resp: {
+    c: [
+      "Programação semanal e diária da Fach 2 (corte, dobra, usinagem)",
+      "Gestão do quadro de kanban e congelamento da sequência",
+      "Análise semanal de matéria-prima e geração de solicitação de compra",
+      "Apontamento diário de produção e registro de paradas com motivo",
+      "Indicador de aderência à programação (semanal)",
+      "Indicador de cobertura de matéria-prima (semanal)",
+      "Alinhamento semanal Fach 1 ↔ Fach 2 e análise mensal de capacidade"
+    ],
+    d: [
+      "Gestão da carteira de pedidos: prioridades e prazos de entrega",
+      "Revisão semanal dos pedidos prioritários (toda segunda)",
+      "Condução da reunião de fechamento semanal (sexta)",
+      "Emissão de OPs e análise inicial de itens comprados com Yuri",
+      "Indicador de pontualidade de entrega ao cliente (semanal)",
+      "Indicador de volume de OPs encerradas — consolidação semanal",
+      "Relatório mensal ao gestor: volume, atrasos e indicadores"
+    ],
+    y: [
+      "Análise de itens comprados (código 80) a cada OP gerada — necessidade líquida e prazo",
+      "Geração de solicitação de compra e acompanhamento até o recebimento",
+      "Programação semanal de montagem da Fach 1",
+      "Abertura e apontamento diário de OPs na Fach 1",
+      "Indicador de pedidos com compra em atraso (semanal)",
+      "Alimentação diária do volume de OPs encerradas para o painel de Daiane"
+    ]
+  }
+};
+
+const profiles = {
+  c: { name: 'Carmen', role: 'Analista PCP · Fach 2', badge: 'PCP Fach 2', av: 'av-c', bdg: 'badge-purple', init: 'CA' },
+  d: { name: 'Daiane', role: 'Líder PCP · Fach 1', badge: 'PCP Fach 1', av: 'av-d', bdg: 'badge-blue', init: 'DA' },
+  y: { name: 'Yuri', role: 'Analista PCP · Fach 1', badge: 'PCP Fach 1', av: 'av-y', bdg: 'badge-coral', init: 'YU' }
+};
+
+// 3. INICIALIZAÇÃO E PERSISTÊNCIA
+function initData() {
+  S.forEach(s => {
+    if(!state.exp[s.id]) state.exp[s.id] = false;
+    if(!state.chk[s.id]) state.chk[s.id] = {};
+    s.tasks.forEach((_, i) => { if(state.chk[s.id][i] === undefined) state.chk[s.id][i] = false; });
+  });
+
+  const saved = localStorage.getItem('satiro_pcp_state');
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      state.chk = parsed.chk || state.chk;
+      state.resp = parsed.resp || state.resp;
+    } catch(e) { console.error('Erro ao ler LocalStorage'); }
+  }
+}
+
+// O botão manual foi removido, então saveData() age silenciosamente.
+function saveData() {
+  localStorage.setItem('satiro_pcp_state', JSON.stringify({ chk: state.chk, resp: state.resp }));
+}
+
+function exportState() {
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ chk: state.chk, resp: state.resp }));
+  const dlAnchorElem = document.createElement('a');
+  dlAnchorElem.setAttribute("href", dataStr);
+  dlAnchorElem.setAttribute("download", "pcp_backup.json");
+  dlAnchorElem.click();
+}
+
+function importState(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    try {
+      const parsed = JSON.parse(evt.target.result);
+      if(parsed.chk) state.chk = parsed.chk;
+      if(parsed.resp) state.resp = parsed.resp;
+      saveData();
+      render(); 
+      alert('Dados importados com sucesso!');
+    } catch(err) { alert('Erro ao importar arquivo JSON inválido.'); }
+  };
+  reader.readAsText(file);
+}
+
+// 4. LÓGICA DE UI E RENDERIZAÇÃO
+function totalDone() {
+  let c=0; S.forEach(s => Object.values(state.chk[s.id]).forEach(v => {if(v)c++;})); return c;
+}
+function stageDone(sid) {
+  return Object.values(state.chk[sid]).filter(Boolean).length;
+}
+
+function updateUI() {
+  const done = totalDone();
+  const pct = Math.round(done / TOTAL * 100);
+  document.getElementById('pf').style.width = pct + '%';
+  document.getElementById('pc').textContent = done + ' de ' + TOTAL + ' itens concluídos';
+  const ppEl = document.getElementById('pp');
+  ppEl.textContent = pct + '%';
+  ppEl.classList.toggle('done', pct === 100);
+  document.getElementById('sv3').textContent = done;
+
+  let sDone = 0;
+  S.forEach(s => {
+    const sd = stageDone(s.id);
+    const st = s.tasks.length;
+    const isDone = sd === st;
+    if(isDone) sDone++;
+
+    const card = document.getElementById('card'+s.id);
+    if(card) {
+      card.classList.toggle('s-done', isDone);
+      card.classList.toggle('in-progress', sd > 0 && !isDone);
+    }
+    const num = document.getElementById('num'+s.id);
+    if(num) { num.classList.toggle('n-done', isDone); num.textContent = isDone ? '✓' : s.id; }
+    const badge = document.getElementById('badge'+s.id);
+    if(badge) badge.style.display = isDone ? 'inline-block' : 'none';
+    const cnt = document.getElementById('cnt'+s.id);
+    if(cnt) cnt.textContent = sd + '/' + st;
+    const mf = document.getElementById('mf'+s.id);
+    if(mf) mf.style.width = (sd/st*100) + '%';
+  });
+  document.getElementById('sv').textContent = sDone;
+}
+
+function toggleStage(sid) {
+  state.exp[sid] = !state.exp[sid];
+  document.getElementById('tasks'+sid).classList.toggle('open', state.exp[sid]);
+  document.getElementById('chev'+sid).classList.toggle('open', state.exp[sid]);
+}
+
+function toggleTask(sid, tid, e) {
+  if(e && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') e.stopPropagation();
+  state.chk[sid][tid] = !state.chk[sid][tid];
+  saveData();
+  document.getElementById(`row_${sid}_${tid}`).classList.toggle('t-done', state.chk[sid][tid]);
+  document.getElementById(`cb_${sid}_${tid}`).checked = state.chk[sid][tid];
+  updateUI();
+  
+  // Se estiver na aba de pendências, re-renderizar para a tarefa sumir ou aparecer
+  const pendenciasTab = document.getElementById('tab-pendencias');
+  if (pendenciasTab.classList.contains('active')) {
+      renderPendencias(document.getElementById('filter-who').value);
+  }
+}
+
+function toggleDetails(sid, tid, e) {
+  e.stopPropagation();
+  document.getElementById(`details_${sid}_${tid}`).classList.toggle('open');
+  e.currentTarget.classList.toggle('open');
+}
+
+// ==========================================================================
+// 5. NOVA LÓGICA: RENDERIZAÇÃO DAS PENDÊNCIAS
+// ==========================================================================
+function renderPendencias(filter) {
+  const container = document.getElementById('pending-list-container');
+  if(!container) return;
+
+  let html = '';
+  let count = 0;
+
+  S.forEach(stage => {
+    stage.tasks.forEach((task, i) => {
+      const isDone = state.chk[stage.id][i];
+      if (!isDone) {
+        if (filter === 'all' || filter === task.w) {
+          count++;
+          html += `
+          <div class="pending-item-card pc-${task.w}">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start">
+              <span class="pending-item-stage">Etapa ${stage.id}: ${stage.name}</span>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <span class="who-tag ${whoMap[task.w]}">${whoLbl[task.w]}</span>
+                <button class="btn-view-trilha" onclick="goToTaskInTrilha(${stage.id}, ${i})">Ver na Trilha ➔</button>
+              </div>
+            </div>
+            <span class="pending-item-task">${task.t}</span>
+          </div>`;
+        }
+      }
+    });
+  });
+
+  if (count === 0) {
+    html = `<div class="empty-state">🎉 Nenhuma pendência encontrada para este filtro. Tudo em dia!</div>`;
+  }
+
+  container.innerHTML = html;
+}
+
+// 6. MANIPULAÇÃO DO CRUD DE RESPONSABILIDADES (DRAG & DROP, EDIT, ADD, DEL)
+function renderResponsabilidades() {
+  const container = document.getElementById('dynamic-responsabilidades');
+  if(!container) return; 
+
+  let html = `<div class="section"><p class="section-label">Responsabilidades Editáveis</p>`;
+  
+  ['c', 'd', 'y'].forEach(k => {
+    const p = profiles[k];
+    html += `
+    <div class="person-card">
+      <div class="person-header"><div class="avatar ${p.av}">${p.init}</div><div class="person-meta"><p>${p.name}</p><span>${p.role} · <span class="badge ${p.bdg}" style="font-size:10px">${p.badge}</span></span></div></div>
+      <ul class="task-list" id="list-${k}" ondragover="allowDrop(event)" ondrop="drop(event, '${k}')">
+        ${state.resp[k].map((txt, i) => `
+          <li class="task-item-edit" draggable="true" ondragstart="drag(event, '${k}', ${i})">
+            <span class="drag-handle">⠿</span>
+            <div class="task-editable" contenteditable="true" onblur="updateResp('${k}', ${i}, this.innerText)">${txt}</div>
+            <button class="btn-icon" title="Excluir" onclick="deleteResp('${k}', ${i})">✕</button>
+          </li>
+        `).join('')}
+      </ul>
+      <button class="btn-add-line" onclick="addResp('${k}')">+ Adicionar nova responsabilidade para ${p.name}</button>
+    </div>`;
+  });
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+function updateResp(role, index, newText) {
+  if (newText.trim() === "") return deleteResp(role, index); 
+  state.resp[role][index] = newText.trim();
+  saveData();
+}
+
+function addResp(role) {
+  state.resp[role].push("Nova responsabilidade...");
+  saveData();
+  renderResponsabilidades(); 
+}
+
+function deleteResp(role, index) {
+  if(confirm("Remover esta responsabilidade?")) {
+    state.resp[role].splice(index, 1);
+    saveData();
+    renderResponsabilidades();
+  }
+}
+
+function allowDrop(ev) { ev.preventDefault(); }
+function drag(ev, role, index) {
+  ev.dataTransfer.setData("srcRole", role);
+  ev.dataTransfer.setData("srcIndex", index);
+}
+function drop(ev, targetRole) {
+  ev.preventDefault();
+  const srcRole = ev.dataTransfer.getData("srcRole");
+  const srcIndex = parseInt(ev.dataTransfer.getData("srcIndex"));
+  
+  if (srcRole && !isNaN(srcIndex)) {
+    const item = state.resp[srcRole].splice(srcIndex, 1)[0];
+    state.resp[targetRole].push(item);
+    saveData();
+    renderResponsabilidades();
+  }
+}
+
+// RENDERIZAÇÃO PRINCIPAL DO DOM
+function render() {
+  const c = document.getElementById('stages-container');
+  c.innerHTML = '';
+  S.forEach(s => {
+    const tasksHtml = s.tasks.map((task, i) => {
+      const isDynamic = task.dynamicRef === 'responsabilidades';
+      const hasDetails = !!task.details || isDynamic;
+      const detailsContent = isDynamic ? `<div id="dynamic-responsabilidades"></div>` : task.details;
+
+      return `
+      <div class="task-container">
+        <div class="task-row ${state.chk[s.id][i] ? 't-done' : ''}" id="row_${s.id}_${i}" onclick="toggleTask(${s.id},${i},event)">
+          <input type="checkbox" class="task-cb" id="cb_${s.id}_${i}" ${state.chk[s.id][i] ? 'checked' : ''}>
+          <span class="task-txt">${task.t}</span>
+          <span class="who-tag ${whoMap[task.w]}">${whoLbl[task.w]}</span>
+          ${hasDetails ? `<span class="task-expand" onclick="toggleDetails(${s.id}, ${i}, event)">›</span>` : ''}
+        </div>
+        ${hasDetails ? `<div class="task-details" id="details_${s.id}_${i}">${detailsContent}</div>` : ''}
+      </div>`;
+    }).join('');
+
+    const div = document.createElement('div');
+    div.className = 'stage-card';
+    div.id = 'card'+s.id;
+    div.innerHTML = `
+      <div class="stage-head" onclick="toggleStage(${s.id})">
+        <div class="s-num title-condensed" id="num${s.id}">${s.id}</div>
+        <div class="s-info"><span class="s-name">${s.name}</span><span class="s-visit">${s.visit}</span></div>
+        <div class="s-right">
+          <span class="s-done-badge" id="badge${s.id}" style="display:none">Concluída ✓</span>
+          <span class="s-count title-condensed" id="cnt${s.id}">0/${s.tasks.length}</span>
+          <span class="chev" id="chev${s.id}">›</span>
+        </div>
+      </div>
+      <div class="s-mini-track"><div class="s-mini-fill" id="mf${s.id}" style="width:0%"></div></div>
+      <div class="s-tasks" id="tasks${s.id}">${tasksHtml}</div>`;
+    c.appendChild(div);
+  });
+  
+  updateUI();
+  renderResponsabilidades(); 
+}
+
+initData();
+const dtEl = document.getElementById('dt-inicio');
+if(dtEl) dtEl.value = new Date().toISOString().split('T')[0];
+render();
+</script>
+</body>
+</html>
