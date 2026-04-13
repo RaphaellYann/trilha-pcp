@@ -74,7 +74,7 @@ const S = [
     {t:'Validar redução no volume de OPs abertas na Fach 2 (meta: −50%)',w:'d'},
   ]},
   {id:3,name:'Análise de comprados', tasks:[
-    { t:'Fach 1: implantar análise de itens comerciais (código 80) a cada OP gerada por Daiane', w:'y',
+    { t:'Fach 1: Análise de demanda de itens comprados fach1 - (códigos 420 + 520 + 580 + 980)', w:'y',
       details: `
         <div class="section" id="s6">
           <p class="section-label">Análise de demanda de itens comprados</p>
@@ -274,9 +274,6 @@ const whoMap = {c:'wc', d:'wd', y:'wy', eq:'weq'};
 const whoLbl = {c:'Carmen', d:'Daiane', y:'Yuri', eq:'Equipe'};
 const TOTAL = 36; 
 
-// ==========================================================================
-// 2. ESTADO GLOBAL MÚTAVEL (SUPABASE)
-// ==========================================================================
 let state = {
   chk: {}, 
   photos: {},
