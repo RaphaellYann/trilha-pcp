@@ -1,8 +1,7 @@
 // ==========================================================================
-// 1. DADOS ESTÁTICOS DA TRILHA (CÓDIGO NOVO INJETADO)
+// 1. DADOS ESTÁTICOS DA TRILHA
 // ==========================================================================
 
-// Array das etapas do Fluxo para podermos injetar botões de foto em cada uma
 const flowStepsData = [
   { icon: '📋', bg: '#E6F1FB', title: 'Gatilho: liberação da Engenharia', desc: 'E-mail da Engenharia.' },
   { icon: '📤', bg: '#EEEDFE', title: 'Etapa 01: Planejamento e Programação', desc: 'Data de entrega no planejador Programação por etapa.' },
@@ -14,28 +13,16 @@ const flowStepsData = [
   { icon: '✅', bg: '#E6F1FB', title: 'Pedido concluído', desc: 'Alimentar indicadores.' }
 ];
 
-// Função que gera o HTML do "Fluxo do Pedido" dinamicamente para incluir as fotos
 function generateFluxoHTML() {
   let html = `<div class="section" id="s2"><p class="section-label">Fluxo do pedido</p>`;
 
   flowStepsData.forEach((step, index) => {
-    const hasPhoto = state.flowPhotos && state.flowPhotos[index];
-    const photoControls = `
-      <div class="photo-controls" onclick="event.stopPropagation()">
-        ${hasPhoto ? `<a href="${state.flowPhotos[index]}" target="_blank" class="task-photo-link">Ver Foto</a>` : ''}
-        <label class="btn-photo-upload" for="flow_file_${index}" title="Anexar Foto">📸</label>
-        <input type="file" id="flow_file_${index}" style="display:none" accept="image/*" capture="environment" onchange="handleFlowUpload(${index}, event)">
-      </div>
-    `;
-
     html += `
       <div class="flow-step">
         <div class="flow-icon" style="background:${step.bg}">${step.icon}</div>
         <div class="flow-body"><strong>${step.title}</strong><span>${step.desc}</span></div>
-        ${photoControls}
       </div>
     `;
-    // Adiciona o conector se não for o último
     if (index < flowStepsData.length - 1) {
       html += `<div class="flow-step"><div class="flow-connector"><div class="flow-line"></div></div></div>`;
     }
@@ -292,10 +279,12 @@ const whoMap = { c: 'wc', d: 'wd', y: 'wy', eq: 'weq' };
 const whoLbl = { c: 'Carmen', d: 'Daiane', y: 'Yuri', eq: 'Equipe' };
 const TOTAL = 36;
 
+// ==========================================================================
+// 2. LÓGICA DE ESTADO (LOCALSTORAGE APENAS)
+// ==========================================================================
+
 let state = {
   chk: {},
-  photos: {},
-  flowPhotos: {},
   exp: {},
   resp: {
     c: ["Programação semanal e diária da Fach 2", "Gestão do quadro de kanban", "Análise semanal de matéria-prima"],
@@ -310,50 +299,27 @@ const profiles = {
   y: { name: 'Yuri', role: 'Analista PCP · Fach 1', badge: 'PCP Fach 1', av: 'av-y', bdg: 'badge-coral', init: 'YU' }
 };
 
-// ==========================================================================
-// 3. INTEGRAÇÃO SUPABASE E LÓGICA DE DADOS
-// ==========================================================================
-const supabaseClient = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
-
-async function initData() {
-  S.forEach(s => {
-    if (!state.exp[s.id]) state.exp[s.id] = false;
-    if (!state.chk[s.id]) state.chk[s.id] = {};
-    if (!state.photos[s.id]) state.photos[s.id] = {};
-    s.tasks.forEach((_, i) => { if (state.chk[s.id][i] === undefined) state.chk[s.id][i] = false; });
-  });
+function initData() {
+  const savedChk = localStorage.getItem('pcp_chk_state');
+  if (savedChk) { try { state.chk = JSON.parse(savedChk); } catch (e) { } }
 
   const savedResp = localStorage.getItem('satiro_resp_state');
   if (savedResp) { try { state.resp = JSON.parse(savedResp); } catch (e) { } }
 
-  try {
-    const { data, error } = await supabaseClient.from('progresso_pcp').select('*');
-    if (error) throw error;
+  S.forEach(s => {
+    if (!state.exp[s.id]) state.exp[s.id] = false;
+    if (!state.chk[s.id]) state.chk[s.id] = {};
+    s.tasks.forEach((_, i) => { if (state.chk[s.id][i] === undefined) state.chk[s.id][i] = false; });
+  });
 
-    if (data) {
-      data.forEach(item => {
-        // Verifica se é uma foto do fluxo de pedido
-        if (item.task_key.startsWith('flow_step_')) {
-          const stepIndex = parseInt(item.task_key.split('_')[2]);
-          state.flowPhotos[stepIndex] = item.photo_url;
-        }
-        // Senão é uma tarefa normal
-        else if (item.stage_id !== null && item.task_index !== null) {
-          state.chk[item.stage_id][item.task_index] = item.is_done;
-          if (item.photo_url) state.photos[item.stage_id][item.task_index] = item.photo_url;
-        }
-      });
-    }
-    document.getElementById('sync-status').textContent = "🟢 Nuvem Ativa";
-  } catch (err) {
-    console.error(err);
-    document.getElementById('sync-status').textContent = "🔴 Erro";
-  }
+  const syncStatusEl = document.getElementById('sync-status');
+  if (syncStatusEl) syncStatusEl.textContent = "🏠 Armazenamento Local";
+  
   render();
 }
 
-async function toggleTask(sid, tid, e) {
-  if (e && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && !e.target.classList.contains('btn-photo-upload')) e.stopPropagation();
+function toggleTask(sid, tid, e) {
+  if (e && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') e.stopPropagation();
 
   const newState = !state.chk[sid][tid];
   state.chk[sid][tid] = newState;
@@ -361,73 +327,24 @@ async function toggleTask(sid, tid, e) {
   document.getElementById(`row_${sid}_${tid}`).classList.toggle('t-done', newState);
   document.getElementById(`cb_${sid}_${tid}`).checked = newState;
 
+  localStorage.setItem('pcp_chk_state', JSON.stringify(state.chk));
+
   updateUI();
   const pendenciasTab = document.getElementById('tab-pendencias');
-  if (pendenciasTab.classList.contains('active')) {
+  if (pendenciasTab && pendenciasTab.classList.contains('active')) {
     renderPendencias(document.getElementById('filter-who').value);
   }
-
-  await supabaseClient.from('progresso_pcp').upsert({
-    task_key: `${sid}_${tid}`,
-    is_done: newState,
-    stage_id: sid,
-    task_index: tid
-  }, { onConflict: 'task_key' });
 }
 
-// Upload de fotos para TAREFAS
-async function handleUpload(sid, tid, event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  document.getElementById('sync-status').textContent = "⏳ Enviando...";
-
-  const fileName = `foto_${sid}_${tid}_${Date.now()}.jpg`;
-  const { data, error } = await supabaseClient.storage.from('fotos').upload(fileName, file);
-
-  if (error) { alert("Erro: " + error.message); return; }
-
-  const photoUrl = `${CONFIG.SUPABASE_URL}/storage/v1/object/public/fotos/${data.path}`;
-  state.photos[sid][tid] = photoUrl;
-
-  await supabaseClient.from('progresso_pcp').upsert({
-    task_key: `${sid}_${tid}`,
-    photo_url: photoUrl,
-    stage_id: sid,
-    task_index: tid
-  }, { onConflict: 'task_key' });
-
-  document.getElementById('sync-status').textContent = "🟢 Nuvem Ativa";
-  render();
-}
-
-// NOVO: Upload de fotos exclusivo para os FLUXOS DO PEDIDO
-async function handleFlowUpload(stepIndex, event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  document.getElementById('sync-status').textContent = "⏳ Enviando foto do fluxo...";
-
-  const fileName = `flow_step_${stepIndex}_${Date.now()}.jpg`;
-  const { data, error } = await supabaseClient.storage.from('fotos').upload(fileName, file);
-
-  if (error) { alert("Erro: " + error.message); return; }
-
-  const photoUrl = `${CONFIG.SUPABASE_URL}/storage/v1/object/public/fotos/${data.path}`;
-  state.flowPhotos[stepIndex] = photoUrl;
-
-  await supabaseClient.from('progresso_pcp').upsert({
-    task_key: `flow_step_${stepIndex}`,
-    photo_url: photoUrl
-  }, { onConflict: 'task_key' });
-
-  document.getElementById('sync-status').textContent = "🟢 Nuvem Ativa";
-  render(); // Atualiza a tela para mostrar o link da foto do fluxo
-}
-
-// Funções de fallback local para Responsabilidades
+// Funções de backup local completo (Responsabilidades + Checks)
 function exportState() {
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ resp: state.resp }));
-  const dlAnchorElem = document.createElement('a'); dlAnchorElem.setAttribute("href", dataStr); dlAnchorElem.setAttribute("download", "pcp_backup.json"); dlAnchorElem.click();
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state));
+  const dlAnchorElem = document.createElement('a'); 
+  dlAnchorElem.setAttribute("href", dataStr); 
+  dlAnchorElem.setAttribute("download", "pcp_backup_completo.json"); 
+  dlAnchorElem.click();
 }
+
 function importState(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -435,15 +352,21 @@ function importState(e) {
   reader.onload = function (evt) {
     try {
       const parsed = JSON.parse(evt.target.result);
-      if (parsed.resp) { state.resp = parsed.resp; localStorage.setItem('satiro_resp_state', JSON.stringify(state.resp)); }
-      render(); alert('Dados importados com sucesso!');
+      if (parsed.resp) state.resp = parsed.resp;
+      if (parsed.chk) state.chk = parsed.chk;
+      
+      localStorage.setItem('satiro_resp_state', JSON.stringify(state.resp));
+      localStorage.setItem('pcp_chk_state', JSON.stringify(state.chk));
+      
+      render(); 
+      alert('Backup restaurado com sucesso!');
     } catch (err) { alert('Erro ao importar arquivo JSON inválido.'); }
   };
   reader.readAsText(file);
 }
 
 // ==========================================================================
-// 4. LÓGICA DE UI E NAVEGAÇÃO
+// 3. LÓGICA DE UI E NAVEGAÇÃO
 // ==========================================================================
 function switchMainTab(tabId, btnContext) {
   document.querySelectorAll('.main-tab-content').forEach(el => el.classList.remove('active'));
@@ -611,26 +534,19 @@ function drop(ev, targetRole) {
 
 function render() {
   const c = document.getElementById('stages-container');
+  if(!c) return;
   c.innerHTML = '';
+  
   S.forEach(s => {
     const tasksHtml = s.tasks.map((task, i) => {
       const isDynamic = task.dynamicRef === 'responsabilidades';
 
-      // Nova lógica: se details for uma função (como o Fluxo do Pedido), executa. Senão, usa a string.
       let detailsContent = '';
       if (isDynamic) detailsContent = `<div id="dynamic-responsabilidades"></div>`;
       else if (typeof task.details === 'function') detailsContent = task.details();
       else if (task.details) detailsContent = task.details;
 
       const hasDetails = !!detailsContent;
-      const hasPhoto = state.photos[s.id] && state.photos[s.id][i];
-      const photoControls = `
-        <div class="photo-controls">
-          ${hasPhoto ? `<a href="${state.photos[s.id][i]}" target="_blank" class="task-photo-link" onclick="event.stopPropagation()">Ver Foto</a>` : ''}
-          <label class="btn-photo-upload" for="file_${s.id}_${i}" onclick="event.stopPropagation()" title="Anexar foto">📸</label>
-          <input type="file" id="file_${s.id}_${i}" style="display:none" accept="image/*" capture="environment" onchange="handleUpload(${s.id}, ${i}, event)">
-        </div>
-      `;
 
       return `
       <div class="task-container">
@@ -638,7 +554,6 @@ function render() {
           <input type="checkbox" class="task-cb" id="cb_${s.id}_${i}" ${state.chk[s.id][i] ? 'checked' : ''}>
           <span class="task-txt">${task.t}</span>
           <span class="who-tag ${whoMap[task.w]}">${whoLbl[task.w]}</span>
-          ${photoControls}
           ${hasDetails ? `<span class="task-expand" onclick="toggleDetails(${s.id}, ${i}, event)">›</span>` : ''}
         </div>
         ${hasDetails ? `<div class="task-details" id="details_${s.id}_${i}">${detailsContent}</div>` : ''}
