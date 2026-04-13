@@ -16,7 +16,7 @@
     <div class="brand-left">
       <div class="brand-name">
         <img src="https://static.wixstatic.com/media/295d3c_bd785c3d12584db7b5a6bc3333ffa2ce~mv2.png/v1/fill/w_576,h_154,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Satiro_Marcadagua_Amarelo%20Queimado.png" alt="Logo">
-      <div class="brand-sub text-uppercase title-condensed">Implantação de PPCP · Lean Manufacturing · Gestão da Produção</div>
+        <div class="brand-sub text-uppercase title-condensed">Implantação de PPCP · Lean Manufacturing · Gestão da Produção</div>
       </div>
     </div>
     <div class="brand-right">
@@ -29,13 +29,16 @@
 <div class="main-tabs-bar">
   <div class="main-tabs-inner">
     <button class="main-tab-btn active" onclick="switchMainTab('trilha', this)">📄 Trilha de Implantação</button>
-    <button class="main-tab-btn" onclick="switchMainTab('treinamento', this)">📚 Treinamento PCP</button>
+    <button class="main-tab-btn" onclick="switchMainTab('treinamento', this)">📚 Pilares do PCP</button>
     <button class="main-tab-btn" onclick="switchMainTab('pendencias', this)">⚠️ Controle de Pendências</button>
   </div>
 </div>
 
 <div class="top-actions">
-    <span class="status-indicator" id="sync-status">Sincronizando com Banco de Dados...</span>
+    <span class="status-indicator" id="sync-status">Sincronizando com Nuvem...</span>
+    <button class="btn-action" onclick="exportState()">⬇ Exportar</button>
+    <button class="btn-action" onclick="document.getElementById('import-file').click()">⬆ Importar</button>
+    <input type="file" id="import-file" style="display:none" accept=".json" onchange="importState(event)">
 </div>
 
 <div class="project-header">
@@ -47,7 +50,7 @@
   <div class="meta-fields">
     <div class="meta-field">
       <label class="title-condensed text-uppercase">Consultor</label>
-      <input type="text" value="Eduardo Satiro Elias" readonly>
+      <input type="text" value="Eduardo Satiro Elias">
     </div>
     <div class="meta-field">
       <label class="title-condensed text-uppercase">Data de início</label>
@@ -259,8 +262,7 @@
       </select>
     </div>
 
-    <div class="pending-list" id="pending-list-container">
-      </div>
+    <div class="pending-list" id="pending-list-container"></div>
   </div>
 </div>
 
