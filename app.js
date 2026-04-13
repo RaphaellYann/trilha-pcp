@@ -17,7 +17,7 @@ const flowStepsData = [
 // Função que gera o HTML do "Fluxo do Pedido" dinamicamente para incluir as fotos
 function generateFluxoHTML() {
   let html = `<div class="section" id="s2"><p class="section-label">Fluxo do pedido</p>`;
-  
+
   flowStepsData.forEach((step, index) => {
     const hasPhoto = state.flowPhotos && state.flowPhotos[index];
     const photoControls = `
@@ -57,40 +57,47 @@ function generateFluxoHTML() {
 }
 
 const S = [
-  {id:1,name:'Alinhamento e base', tasks:[
-    { t:'Apresentar o fluxo do pedido (Fach 1 → Fach 2 → Fach 1) para as 3 pessoas', w:'eq', details: generateFluxoHTML },
-    { t:'Conferir pedidos liberados que precisam ser programados', w:'d' },
-    { t:'Definir formalmente os papéis: Daiane (carteira), Yuri (montagem e comprados), Carmen (fabricação e kanban)', w:'eq', dynamicRef: 'responsabilidades' },
-    { t:'Apresentar a lógica do kanban e o impacto esperado na redução de OPs', w:'eq' },
-    { t:'Levantar lista preliminar de itens série 320 que entrarão no kanban', w:'c' },
-  ]},
-  {id:2,name:'Kanban 320 — Fach 2', tasks:[
-    {t:'Identificar todos os itens 320 que se repetem entre pedidos com código e frequência',w:'c'},
-    {t:'Calcular ponto de reposição e quantidade do lote por item',w:'c'},
-    {t:'Criar os cartões físicos do kanban (etiqueta com código, descrição e quantidade)',w:'c'},
-    {t:'Montar e fixar o quadro de kanban na Fach 2 (colunas: A fabricar | Em produção)',w:'c'},
-    {t:'Treinar Carmen na gestão do quadro: quando acionar, como repor e como analisar',w:'c'},
-    {t:'Análisar o giro de reposição do Kanban',w:'c'},
-    {t:'Validar redução no volume de OPs abertas na Fach 2 (meta: −50%)',w:'d'},
-  ]},
-  {id:3,name:'Análise de comprados', tasks:[
-    { t:'Fach 1: Análise de demanda de itens comprados fach1 - (códigos 420 + 520 + 580 + 980)', w:'y',
-      details: `
+  {
+    id: 1, name: 'Alinhamento e base', tasks: [
+      { t: 'Apresentar o fluxo do pedido (Fach 1 → Fach 2 → Fach 1) para as 3 pessoas', w: 'eq', details: generateFluxoHTML },
+      { t: 'Conferir pedidos liberados que precisam ser programados', w: 'd' },
+      { t: 'Definir formalmente os papéis: Daiane (carteira), Yuri (montagem e comprados), Carmen (fabricação e kanban)', w: 'eq', dynamicRef: 'responsabilidades' },
+      { t: 'Apresentar a lógica do kanban e o impacto esperado na redução de OPs', w: 'eq' },
+      { t: 'Levantar lista preliminar de itens série 320 que entrarão no kanban', w: 'c' },
+    ]
+  },
+  {
+    id: 2, name: 'Kanban 320 — Fach 2', tasks: [
+      { t: 'Identificar todos os itens 320 que se repetem entre pedidos com código e frequência', w: 'c' },
+      { t: 'Calcular ponto de reposição e quantidade do lote por item', w: 'c' },
+      { t: 'Criar os cartões físicos do kanban (etiqueta com código, descrição e quantidade)', w: 'c' },
+      { t: 'Montar e fixar o quadro de kanban na Fach 2 (colunas: A fabricar | Em produção)', w: 'c' },
+      { t: 'Treinar Carmen na gestão do quadro: quando acionar, como repor e como analisar', w: 'c' },
+      { t: 'Análisar o giro de reposição do Kanban', w: 'c' },
+      { t: 'Validar redução no volume de OPs abertas na Fach 2 (meta: −50%)', w: 'd' },
+    ]
+  },
+  {
+    id: 3, name: 'Análise de comprados', tasks: [
+      {
+        t: 'Fach 1: Análise de demanda de itens comprados fach1 - (códigos 420 + 520 + 580 + 980)', w: 'y',
+        details: `
         <div class="section" id="s6">
           <p class="section-label">Análise de demanda de itens comprados</p>
           <div class="comp-header comp-fach1">
-            <h3>Fach 1 — Itens comerciais (código 80)</h3>
-            <p>Rolamentos, parafusos, vedações, motores, componentes elétricos e demais itens comprados prontos para montagem. A análise acontece no momento da geração da OP.</p>
+            <h3>Fach 1 — Análise de Itens Comerciais</h3>
           </div>
           <div class="card">
-            <p class="section-label" style="margin-bottom:.5rem">Como analisar — passo a passo</p>
+            <p class="section-label" style="margin-bottom:.5rem">Passo a Passo</p>
             <ul class="step-list blue">
-              <li><div><strong>Abrir a lista de materiais (LM) da OP</strong><br>Para cada pedido que entrar na carteira, acessar a lista completa de itens — incluindo todos os códigos 80 necessários para a montagem.</div></li>
-              <li><div><strong>Verificar o estoque disponível</strong><br>Para cada item da lista, conferir manualmente (ou no ERP) a quantidade em estoque. Se o ERP for fraco, manter uma planilha de controle de estoque de itens comerciais atualizada semanalmente.</div></li>
-              <li><div><strong>Calcular a necessidade líquida</strong><br>Necessidade = quantidade da LM menos o que está em estoque. Se o resultado for positivo, precisa comprar. Se for zero ou negativo, está coberto.</div></li>
-              <li><div><strong>Verificar o prazo de entrega do fornecedor</strong><br>Para cada item que precisa comprar, verificar o lead time do fornecedor. Exemplo: item com lead time de 10 dias úteis precisa ser pedido 10 dias antes da data prevista de montagem.</div></li>
-              <li><div><strong>Gerar a solicitação de compra</strong><br>Emitir a solicitação com: código do item, quantidade, data de entrega necessária e OP de referência. Entregar ao comprador ou registrar no sistema.</div></li>
-              <li><div><strong>Acompanhar o pedido de compra até o recebimento</strong><br>Verificar na reunião semanal se os itens críticos foram recebidos. Alertar montagem se houver risco de atraso.</div></li>
+              <li><div>1. Após a liberação do pedido pela engenharia, gerar a ordem de produção vinculada ao pedido de venda.</div></li>
+              <li><div>2. Identificar na estrutura do produto os itens comerciais necessários ao atendimento do pedido.</div></li>
+              <li><div>3. Filtrar apenas os itens comerciais da FACH1, considerando os grupos definidos para esta análise.</div></li>
+              <li><div>4. Verificar no ERP quais itens possuem saldo disponível e quais apresentam necessidade de compra.</div></li>
+              <li><div>5. Avaliar se os itens faltantes possuem risco de prazo em relação à data necessária de montagem.</div></li>
+              <li><div>6. Gerar a solicitação de compra somente dos itens comerciais não cobertos pelo estoque.</div></li>
+              <li><div>7. Sinalizar imediatamente os casos críticos para replanejamento.</div></li>
+             <li><div>8. Acompanhar os itens críticos até o recebimento para garantir atendimento do pedido.</div></li>
             </ul>
           </div>
           <div class="alert-box">
@@ -127,15 +134,18 @@ const S = [
           </div>
         </div>
       `
-    },
-    {t:'Treinar Yuri no cálculo de necessidade líquida: quantidade da LM menos estoque disponível',w:'y'},
-    {t:'Fach 2: implantar análise de matéria-prima toda sexta-feira à tarde',w:'c'},
-    {t:'Configurar planilha Google Sheets de controle de compras (uma para cada fábrica)',w:'eq'},
-    {t:'Definir regra: item com risco de atraso vai direto para Daiane no mesmo dia',w:'d'},
-  ]},
-  {id:4,name:'Programação congelada', tasks:[
-    { t:'Comunicar a regra de congelamento para toda a equipe: segunda até 10h, mudança só com justificativa registrada', w:'d',
-      details: `
+      },
+      { t: 'Treinar Yuri no cálculo de necessidade líquida: quantidade da LM menos estoque disponível', w: 'y' },
+      { t: 'Fach 2: implantar análise de matéria-prima toda sexta-feira à tarde', w: 'c' },
+      { t: 'Configurar planilha Google Sheets de controle de compras (uma para cada fábrica)', w: 'eq' },
+      { t: 'Definir regra: item com risco de atraso vai direto para Daiane no mesmo dia', w: 'd' },
+    ]
+  },
+  {
+    id: 4, name: 'Programação congelada', tasks: [
+      {
+        t: 'Comunicar a regra de congelamento para toda a equipe: segunda até 10h, mudança só com justificativa registrada', w: 'd',
+        details: `
         <div class="section" id="s3">
           <p class="section-label">Programação</p>
           <div class="congelar-box">
@@ -172,28 +182,35 @@ const S = [
           </div>
         </div>
       `
-    },
-    {t:'Configurar planilha de programação semanal da Fach 2 no Google Sheets — Carmen',w:'c'},
-    {t:'Configurar planilha de programação semanal da Fach 1 no Google Sheets — Yuri',w:'y'},
-    {t:'Realizar primeiro ciclo de programação sem alterações não autorizadas',w:'eq'},
-    {t:'Auditar na visita seguinte: quantas OPs saíram da sequência programada e por quê',w:'d'},
-  ]},
-  {id:5,name:'Apontamento simplificado', tasks:[
-    {t:'Criar formulário Google Forms no celular: entrada em produção + conclusão + baixa de material',w:'eq'},
-    {t:'Treinar equipe: apenas 3 campos — OP, status (entrada/conclusão), quantidade',w:'eq'},
-    {t:'Realizar primeiro ciclo completo de apontamentos nas duas fábricas',w:'eq'},
-    {t:'Validar consistência: o que foi apontado bate com o que foi produzido e liberado',w:'c'},
-  ]},
-  {id:6,name:'Kanban 220 — Fach 1', tasks:[
-    {t:'Levantar os conjuntos 220 (séries 420, 520, 500) que entrarão no kanban',w:'c'},
-    {t:'Carmen define cartões, pontos de reposição e quantidades sem envolvimento de Yuri',w:'c'},
-    {t:'Montar o quadro físico do kanban 220 na Fach 1',w:'c'},
-    {t:'Treinar Yuri para acionar os cartões corretamente: apenas retirar e entregar para Carmen',w:'y'},
-    {t:'Realizar primeiro ciclo do kanban 220 em operação com Carmen gerenciando',w:'c'},
-  ]},
-  {id:7,name:'Indicadores e autonomia', tasks:[
-    { t:'5 indicadores configurados e preenchidos pela equipe sem apoio externo', w:'eq',
-      details: `
+      },
+      { t: 'Configurar planilha de programação semanal da Fach 2 no Google Sheets — Carmen', w: 'c' },
+      { t: 'Configurar planilha de programação semanal da Fach 1 no Google Sheets — Yuri', w: 'y' },
+      { t: 'Realizar primeiro ciclo de programação sem alterações não autorizadas', w: 'eq' },
+      { t: 'Auditar na visita seguinte: quantas OPs saíram da sequência programada e por quê', w: 'd' },
+    ]
+  },
+  {
+    id: 5, name: 'Apontamento simplificado', tasks: [
+      { t: 'Criar formulário Google Forms no celular: entrada em produção + conclusão + baixa de material', w: 'eq' },
+      { t: 'Treinar equipe: apenas 3 campos — OP, status (entrada/conclusão), quantidade', w: 'eq' },
+      { t: 'Realizar primeiro ciclo completo de apontamentos nas duas fábricas', w: 'eq' },
+      { t: 'Validar consistência: o que foi apontado bate com o que foi produzido e liberado', w: 'c' },
+    ]
+  },
+  {
+    id: 6, name: 'Kanban 220 — Fach 1', tasks: [
+      { t: 'Levantar os conjuntos 220 (séries 420, 520, 500) que entrarão no kanban', w: 'c' },
+      { t: 'Carmen define cartões, pontos de reposição e quantidades sem envolvimento de Yuri', w: 'c' },
+      { t: 'Montar o quadro físico do kanban 220 na Fach 1', w: 'c' },
+      { t: 'Treinar Yuri para acionar os cartões corretamente: apenas retirar e entregar para Carmen', w: 'y' },
+      { t: 'Realizar primeiro ciclo do kanban 220 em operação com Carmen gerenciando', w: 'c' },
+    ]
+  },
+  {
+    id: 7, name: 'Indicadores e autonomia', tasks: [
+      {
+        t: '5 indicadores configurados e preenchidos pela equipe sem apoio externo', w: 'eq',
+        details: `
         <div class="section" id="s7">
           <p class="section-label">Indicadores</p>
           <div class="card" style="margin-bottom:1rem">
@@ -262,22 +279,23 @@ const S = [
           </div>
         </div>
       `
-    },
-    {t:'Reunião de fechamento semanal (sexta) operando de forma autônoma — Daiane conduz',w:'d'},
-    {t:'Kanban 320 operando de forma estável com reposição sem emissão de OP',w:'c'},
-    {t:'Kanban 220 operando com Yuri acionando e Carmen gerenciando',w:'c'},
-    {t:'Pedidos com prazo de conclusão previsível comunicado ao cliente',w:'d'},
-  ]}
+      },
+      { t: 'Reunião de fechamento semanal (sexta) operando de forma autônoma — Daiane conduz', w: 'd' },
+      { t: 'Kanban 320 operando de forma estável com reposição sem emissão de OP', w: 'c' },
+      { t: 'Kanban 220 operando com Yuri acionando e Carmen gerenciando', w: 'c' },
+      { t: 'Pedidos com prazo de conclusão previsível comunicado ao cliente', w: 'd' },
+    ]
+  }
 ];
 
-const whoMap = {c:'wc', d:'wd', y:'wy', eq:'weq'};
-const whoLbl = {c:'Carmen', d:'Daiane', y:'Yuri', eq:'Equipe'};
-const TOTAL = 36; 
+const whoMap = { c: 'wc', d: 'wd', y: 'wy', eq: 'weq' };
+const whoLbl = { c: 'Carmen', d: 'Daiane', y: 'Yuri', eq: 'Equipe' };
+const TOTAL = 36;
 
 let state = {
-  chk: {}, 
+  chk: {},
   photos: {},
-  flowPhotos: {}, 
+  flowPhotos: {},
   exp: {},
   resp: {
     c: ["Programação semanal e diária da Fach 2", "Gestão do quadro de kanban", "Análise semanal de matéria-prima"],
@@ -299,61 +317,61 @@ const supabaseClient = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABAS
 
 async function initData() {
   S.forEach(s => {
-    if(!state.exp[s.id]) state.exp[s.id] = false;
-    if(!state.chk[s.id]) state.chk[s.id] = {};
-    if(!state.photos[s.id]) state.photos[s.id] = {};
-    s.tasks.forEach((_, i) => { if(state.chk[s.id][i] === undefined) state.chk[s.id][i] = false; });
+    if (!state.exp[s.id]) state.exp[s.id] = false;
+    if (!state.chk[s.id]) state.chk[s.id] = {};
+    if (!state.photos[s.id]) state.photos[s.id] = {};
+    s.tasks.forEach((_, i) => { if (state.chk[s.id][i] === undefined) state.chk[s.id][i] = false; });
   });
 
   const savedResp = localStorage.getItem('satiro_resp_state');
-  if (savedResp) { try { state.resp = JSON.parse(savedResp); } catch(e) { } }
+  if (savedResp) { try { state.resp = JSON.parse(savedResp); } catch (e) { } }
 
   try {
-      const { data, error } = await supabaseClient.from('progresso_pcp').select('*');
-      if (error) throw error;
-      
-      if (data) {
-          data.forEach(item => {
-              // Verifica se é uma foto do fluxo de pedido
-              if(item.task_key.startsWith('flow_step_')) {
-                  const stepIndex = parseInt(item.task_key.split('_')[2]);
-                  state.flowPhotos[stepIndex] = item.photo_url;
-              } 
-              // Senão é uma tarefa normal
-              else if (item.stage_id !== null && item.task_index !== null) {
-                  state.chk[item.stage_id][item.task_index] = item.is_done;
-                  if(item.photo_url) state.photos[item.stage_id][item.task_index] = item.photo_url;
-              }
-          });
-      }
-      document.getElementById('sync-status').textContent = "🟢 Nuvem Ativa";
+    const { data, error } = await supabaseClient.from('progresso_pcp').select('*');
+    if (error) throw error;
+
+    if (data) {
+      data.forEach(item => {
+        // Verifica se é uma foto do fluxo de pedido
+        if (item.task_key.startsWith('flow_step_')) {
+          const stepIndex = parseInt(item.task_key.split('_')[2]);
+          state.flowPhotos[stepIndex] = item.photo_url;
+        }
+        // Senão é uma tarefa normal
+        else if (item.stage_id !== null && item.task_index !== null) {
+          state.chk[item.stage_id][item.task_index] = item.is_done;
+          if (item.photo_url) state.photos[item.stage_id][item.task_index] = item.photo_url;
+        }
+      });
+    }
+    document.getElementById('sync-status').textContent = "🟢 Nuvem Ativa";
   } catch (err) {
-      console.error(err);
-      document.getElementById('sync-status').textContent = "🔴 Erro";
+    console.error(err);
+    document.getElementById('sync-status').textContent = "🔴 Erro";
   }
   render();
 }
 
 async function toggleTask(sid, tid, e) {
-  if(e && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && !e.target.classList.contains('btn-photo-upload')) e.stopPropagation();
-  
+  if (e && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && !e.target.classList.contains('btn-photo-upload')) e.stopPropagation();
+
   const newState = !state.chk[sid][tid];
   state.chk[sid][tid] = newState;
 
   document.getElementById(`row_${sid}_${tid}`).classList.toggle('t-done', newState);
   document.getElementById(`cb_${sid}_${tid}`).checked = newState;
-  
+
   updateUI();
   const pendenciasTab = document.getElementById('tab-pendencias');
   if (pendenciasTab.classList.contains('active')) {
-      renderPendencias(document.getElementById('filter-who').value);
+    renderPendencias(document.getElementById('filter-who').value);
   }
 
-  await supabaseClient.from('progresso_pcp').upsert({ 
-      task_key: `${sid}_${tid}`, 
-      is_done: newState,
-      stage_id: sid,
-      task_index: tid
+  await supabaseClient.from('progresso_pcp').upsert({
+    task_key: `${sid}_${tid}`,
+    is_done: newState,
+    stage_id: sid,
+    task_index: tid
   }, { onConflict: 'task_key' });
 }
 
@@ -371,15 +389,15 @@ async function handleUpload(sid, tid, event) {
   const photoUrl = `${CONFIG.SUPABASE_URL}/storage/v1/object/public/fotos/${data.path}`;
   state.photos[sid][tid] = photoUrl;
 
-  await supabaseClient.from('progresso_pcp').upsert({ 
-      task_key: `${sid}_${tid}`, 
-      photo_url: photoUrl,
-      stage_id: sid,
-      task_index: tid
+  await supabaseClient.from('progresso_pcp').upsert({
+    task_key: `${sid}_${tid}`,
+    photo_url: photoUrl,
+    stage_id: sid,
+    task_index: tid
   }, { onConflict: 'task_key' });
 
   document.getElementById('sync-status').textContent = "🟢 Nuvem Ativa";
-  render(); 
+  render();
 }
 
 // NOVO: Upload de fotos exclusivo para os FLUXOS DO PEDIDO
@@ -396,9 +414,9 @@ async function handleFlowUpload(stepIndex, event) {
   const photoUrl = `${CONFIG.SUPABASE_URL}/storage/v1/object/public/fotos/${data.path}`;
   state.flowPhotos[stepIndex] = photoUrl;
 
-  await supabaseClient.from('progresso_pcp').upsert({ 
-      task_key: `flow_step_${stepIndex}`, 
-      photo_url: photoUrl
+  await supabaseClient.from('progresso_pcp').upsert({
+    task_key: `flow_step_${stepIndex}`,
+    photo_url: photoUrl
   }, { onConflict: 'task_key' });
 
   document.getElementById('sync-status').textContent = "🟢 Nuvem Ativa";
@@ -412,14 +430,14 @@ function exportState() {
 }
 function importState(e) {
   const file = e.target.files[0];
-  if(!file) return;
+  if (!file) return;
   const reader = new FileReader();
-  reader.onload = function(evt) {
+  reader.onload = function (evt) {
     try {
       const parsed = JSON.parse(evt.target.result);
-      if(parsed.resp) { state.resp = parsed.resp; localStorage.setItem('satiro_resp_state', JSON.stringify(state.resp)); }
+      if (parsed.resp) { state.resp = parsed.resp; localStorage.setItem('satiro_resp_state', JSON.stringify(state.resp)); }
       render(); alert('Dados importados com sucesso!');
-    } catch(err) { alert('Erro ao importar arquivo JSON inválido.'); }
+    } catch (err) { alert('Erro ao importar arquivo JSON inválido.'); }
   };
   reader.readAsText(file);
 }
@@ -432,7 +450,7 @@ function switchMainTab(tabId, btnContext) {
   document.querySelectorAll('.main-tab-btn').forEach(el => el.classList.remove('active'));
   document.getElementById('tab-' + tabId).classList.add('active');
   btnContext.classList.add('active');
-  
+
   const titleEl = document.getElementById('dynamic-title');
   if (tabId === 'treinamento') titleEl.innerHTML = 'TREINAMENTO<br>PCP';
   else if (tabId === 'pendencias') { titleEl.innerHTML = 'CONTROLE DE<br>PENDÊNCIAS'; renderPendencias(document.getElementById('filter-who').value); }
@@ -451,18 +469,18 @@ function goToTaskInTrilha(stageId, taskIndex) {
   switchMainTab('trilha', btnTrilha);
   if (!state.exp[stageId]) toggleStage(stageId);
   setTimeout(() => {
-      const taskRow = document.getElementById(`row_${stageId}_${taskIndex}`);
-      if (taskRow) {
-          taskRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          taskRow.classList.remove('highlight-task');
-          void taskRow.offsetWidth; 
-          taskRow.classList.add('highlight-task');
-          setTimeout(() => taskRow.classList.remove('highlight-task'), 2000);
-      }
+    const taskRow = document.getElementById(`row_${stageId}_${taskIndex}`);
+    if (taskRow) {
+      taskRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      taskRow.classList.remove('highlight-task');
+      void taskRow.offsetWidth;
+      taskRow.classList.add('highlight-task');
+      setTimeout(() => taskRow.classList.remove('highlight-task'), 2000);
+    }
   }, 150);
 }
 
-function totalDone() { let c=0; S.forEach(s => Object.values(state.chk[s.id]).forEach(v => {if(v)c++;})); return c; }
+function totalDone() { let c = 0; S.forEach(s => Object.values(state.chk[s.id]).forEach(v => { if (v) c++; })); return c; }
 function stageDone(sid) { return Object.values(state.chk[sid]).filter(Boolean).length; }
 
 function updateUI() {
@@ -480,26 +498,26 @@ function updateUI() {
     const sd = stageDone(s.id);
     const st = s.tasks.length;
     const isDone = sd === st;
-    if(isDone) sDone++;
+    if (isDone) sDone++;
 
-    const card = document.getElementById('card'+s.id);
-    if(card) { card.classList.toggle('s-done', isDone); card.classList.toggle('in-progress', sd > 0 && !isDone); }
-    const num = document.getElementById('num'+s.id);
-    if(num) { num.classList.toggle('n-done', isDone); num.textContent = isDone ? '✓' : s.id; }
-    const badge = document.getElementById('badge'+s.id);
-    if(badge) badge.style.display = isDone ? 'inline-block' : 'none';
-    const cnt = document.getElementById('cnt'+s.id);
-    if(cnt) cnt.textContent = sd + '/' + st;
-    const mf = document.getElementById('mf'+s.id);
-    if(mf) mf.style.width = (sd/st*100) + '%';
+    const card = document.getElementById('card' + s.id);
+    if (card) { card.classList.toggle('s-done', isDone); card.classList.toggle('in-progress', sd > 0 && !isDone); }
+    const num = document.getElementById('num' + s.id);
+    if (num) { num.classList.toggle('n-done', isDone); num.textContent = isDone ? '✓' : s.id; }
+    const badge = document.getElementById('badge' + s.id);
+    if (badge) badge.style.display = isDone ? 'inline-block' : 'none';
+    const cnt = document.getElementById('cnt' + s.id);
+    if (cnt) cnt.textContent = sd + '/' + st;
+    const mf = document.getElementById('mf' + s.id);
+    if (mf) mf.style.width = (sd / st * 100) + '%';
   });
   document.getElementById('sv').textContent = sDone;
 }
 
 function toggleStage(sid) {
   state.exp[sid] = !state.exp[sid];
-  document.getElementById('tasks'+sid).classList.toggle('open', state.exp[sid]);
-  document.getElementById('chev'+sid).classList.toggle('open', state.exp[sid]);
+  document.getElementById('tasks' + sid).classList.toggle('open', state.exp[sid]);
+  document.getElementById('chev' + sid).classList.toggle('open', state.exp[sid]);
 }
 
 function toggleDetails(sid, tid, e) {
@@ -510,15 +528,15 @@ function toggleDetails(sid, tid, e) {
 
 function renderPendencias(filter) {
   const container = document.getElementById('pending-list-container');
-  if(!container) return;
+  if (!container) return;
   let html = '', count = 0;
 
   S.forEach(stage => {
     stage.tasks.forEach((task, i) => {
       const isDone = state.chk[stage.id][i];
       if (!isDone && (filter === 'all' || filter === task.w)) {
-          count++;
-          html += `
+        count++;
+        html += `
           <div class="pending-item-card pc-${task.w}">
             <div style="display:flex; justify-content:space-between; align-items:flex-start">
               <span class="pending-item-stage">Etapa ${stage.id}: ${stage.name}</span>
@@ -538,7 +556,7 @@ function renderPendencias(filter) {
 
 function renderResponsabilidades() {
   const container = document.getElementById('dynamic-responsabilidades');
-  if(!container) return; 
+  if (!container) return;
   let html = `<div class="section"><p class="section-label">Responsabilidades Editáveis</p>`;
   ['c', 'd', 'y'].forEach(k => {
     const p = profiles[k];
@@ -562,17 +580,17 @@ function renderResponsabilidades() {
 }
 
 function updateResp(role, index, newText) {
-  if (newText.trim() === "") return deleteResp(role, index); 
+  if (newText.trim() === "") return deleteResp(role, index);
   state.resp[role][index] = newText.trim();
   localStorage.setItem('satiro_resp_state', JSON.stringify(state.resp));
 }
 function addResp(role) {
   state.resp[role].push("Nova responsabilidade...");
   localStorage.setItem('satiro_resp_state', JSON.stringify(state.resp));
-  renderResponsabilidades(); 
+  renderResponsabilidades();
 }
 function deleteResp(role, index) {
-  if(confirm("Remover esta responsabilidade?")) {
+  if (confirm("Remover esta responsabilidade?")) {
     state.resp[role].splice(index, 1);
     localStorage.setItem('satiro_resp_state', JSON.stringify(state.resp));
     renderResponsabilidades();
@@ -597,7 +615,7 @@ function render() {
   S.forEach(s => {
     const tasksHtml = s.tasks.map((task, i) => {
       const isDynamic = task.dynamicRef === 'responsabilidades';
-      
+
       // Nova lógica: se details for uma função (como o Fluxo do Pedido), executa. Senão, usa a string.
       let detailsContent = '';
       if (isDynamic) detailsContent = `<div id="dynamic-responsabilidades"></div>`;
@@ -629,7 +647,7 @@ function render() {
 
     const div = document.createElement('div');
     div.className = 'stage-card';
-    div.id = 'card'+s.id;
+    div.id = 'card' + s.id;
     div.innerHTML = `
       <div class="stage-head" onclick="toggleStage(${s.id})">
         <div class="s-num title-condensed" id="num${s.id}">${s.id}</div>
@@ -644,12 +662,12 @@ function render() {
       <div class="s-tasks" id="tasks${s.id}">${tasksHtml}</div>`;
     c.appendChild(div);
   });
-  
+
   updateUI();
-  renderResponsabilidades(); 
+  renderResponsabilidades();
 }
 
 const dtEl = document.getElementById('dt-inicio');
-if(dtEl) dtEl.value = new Date().toISOString().split('T')[0];
+if (dtEl) dtEl.value = new Date().toISOString().split('T')[0];
 
 initData();
