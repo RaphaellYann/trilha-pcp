@@ -104,7 +104,7 @@
         <div class="treinamento-section active" id="ts-0">
           <div class="cover-header">
             <h1 class="title-condensed">Plano de implantação — PCP</h1>
-            <p>Fach Industrial &nbsp;·&nbsp; Estrutura mínima para rodar o PCP nas duas unidades</p>
+            <p>Fach Industrial &nbsp;·&nbsp; Estrutura para rodar o PCP nas duas unidades</p>
           </div>
           <div class="two-col">
             <div class="card">
@@ -146,7 +146,7 @@
                 <h3>Kanban 320 — Fach 2</h3>
                 <span class="impact-pill">−50% de OPs</span>
               </div>
-              <p>Itens séries 300 e 20 (peças cortadas, dobradas e usinadas que se repetem entre pedidos).</p>
+              <p>Itens séries 320 (peças fabricadas que se repetem entre pedidos).</p>
             </div>
           </div>
           
@@ -156,7 +156,7 @@
               <li><div><strong>Levantamento dos itens 320</strong> — identificar todos que se repetem entre pedidos com código, descrição e frequência de uso.</div></li>
               <li><div><strong>Cálculo do ponto de reposição</strong> — lead time de fabricação + consumo médio = quantidade mínima no estoque para acionar o cartão.</div></li>
               <li><div><strong>Cartão físico por item</strong> — o cartão viaja com o lote de peças. Quando a última peça sai, o cartão vai para o quadro de produção de Carmen.</div></li>
-              <li><div><strong>Carmen programa a reposição</strong> — sem OP formal. Carmen vê o cartão no quadro e inclui a peça na programação da semana automaticamente.</div></li>
+              <li><div><strong>Carmen programa a reposição</strong> — Carmen vê o cartão no quadro e inclui a peça na programação da semana automaticamente.</div></li>
               <li><div><strong>Validação da redução de OPs</strong> — acompanhar a queda no volume de ordens abertas a cada ciclo.</div></li>
             </ul>
             <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;margin-top:4px;border-top:0.5px solid var(--border)">
@@ -167,22 +167,22 @@
 
           <div class="kanban-box kb-1" style="margin-top:.25rem">
             <h3>Kanban 220 — Conjuntos (Fach 1)</h3>
-            <p>Conjuntos séries 420, 520 e 500. A gestão dos cartões fica centralizada com Carmen. Yuri apenas sinaliza a necessidade — sem responsabilidade de gerenciar o quadro.</p>
+            <p>A gestão dos cartões fica centralizada com Yuri. Sinalizando a necessidade dos 320 para Fach 2.</p>
           </div>
           
           <div class="card">
             <p class="section-label" style="margin-bottom:.5rem">Divisão de papéis</p>
             <div class="routine-row">
               <div class="routine-text">
-                <strong>Carmen — gestão centralizada</strong>
+                <strong>Gestão centralizada</strong>
                 <span>Define cartões, pontos de reposição e quantidades. Organiza a reposição pela Fach 2. Mantém o quadro atualizado.</span>
               </div>
               <span class="who who-c" style="align-self:flex-start;margin-top:2px">Carmen</span>
             </div>
             <div class="routine-row">
               <div class="routine-text">
-                <strong>Yuri — apenas aciona o cartão</strong>
-                <span>Quando o estoque de um conjunto cai abaixo do ponto, Yuri retira o cartão e entrega para Carmen. Sem responsabilidade de gestão do quadro.</span>
+                <strong>Apenas aciona o cartão</strong>
+                <span>Quando o estoque de um conjunto cai abaixo do ponto, Yuri aciona o cartão gerando a OP do conjunto 220 e solicitando os 320 para Carmen.</span>
               </div>
               <span class="who who-y" style="align-self:flex-start;margin-top:2px">Yuri</span>
             </div>

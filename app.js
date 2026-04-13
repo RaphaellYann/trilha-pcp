@@ -67,7 +67,7 @@ const S = [
   {
     id: 3, name: 'Análise de comprados', tasks: [
       {
-        t: 'Fach 1: Análise de demanda de itens comprados fach1 - (códigos 420 + 520 + 580 + 980)', w: 'y',
+        t: 'Fach 1: Análise de demanda de itens comprados fach1 - (códigos 420 + 520 + 580 + 980)', w: 'eq',
         details: `
         <div class="section" id="s6">
           <p class="section-label">Análise de demanda de itens comprados</p>
@@ -77,43 +77,45 @@ const S = [
           <div class="card">
             <p class="section-label" style="margin-bottom:.5rem">Passo a Passo</p>
             <ul class="step-list blue">
-              <li><div>1. Após a liberação do pedido pela engenharia, gerar a ordem de produção vinculada ao pedido de venda.</div></li>
-              <li><div>2. Identificar na estrutura do produto os itens comerciais necessários ao atendimento do pedido.</div></li>
-              <li><div>3. Filtrar apenas os itens comerciais da FACH1, considerando os grupos definidos para esta análise.</div></li>
-              <li><div>4. Verificar no ERP quais itens possuem saldo disponível e quais apresentam necessidade de compra.</div></li>
-              <li><div>5. Avaliar se os itens faltantes possuem risco de prazo em relação à data necessária de montagem.</div></li>
-              <li><div>6. Gerar a solicitação de compra somente dos itens comerciais não cobertos pelo estoque.</div></li>
-              <li><div>7. Sinalizar imediatamente os casos críticos para replanejamento.</div></li>
-             <li><div>8. Acompanhar os itens críticos até o recebimento para garantir atendimento do pedido.</div></li>
+              <li><div>Após a liberação do pedido pela engenharia, gerar a ordem de produção vinculada ao pedido de venda.</div></li>
+              <li><div>Identificar na estrutura do produto os itens comerciais necessários ao atendimento do pedido.</div></li>
+              <li><div>Filtrar apenas os itens comerciais da FACH1, considerando os grupos definidos para esta análise.</div></li>
+              <li><div>Verificar no ERP quais itens possuem saldo disponível e quais apresentam necessidade de compra.</div></li>
+              <li><div>Avaliar se os itens faltantes possuem risco de prazo em relação à data necessária de montagem.</div></li>
+              <li><div>Gerar a solicitação de compra somente dos itens comerciais não cobertos pelo estoque.</div></li>
+              <li><div>Sinalizar imediatamente os casos críticos para replanejamento.</div></li>
+             <li><div>Acompanhar os itens críticos até o recebimento para garantir atendimento do pedido.</div></li>
             </ul>
           </div>
           <div class="alert-box">
             <h4>Quando fazer esta análise</h4>
-            <p>Assim que o pedido for confirmado pelo cliente — não na véspera da montagem. O atraso na análise de comprados é uma das causas mais comuns de parada de linha.</p>
+            <p>Logo após a geração da ordem de produção, com o pedido já liberado pela engenharia. A análise deve ocorrer no início do fluxo, e não próxima da montagem.</p>
           </div>
           <div class="card" style="margin-bottom:.75rem">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3>Responsável</h3><span class="who who-y">Yuri</span></div>
-            <p>Yuri realiza a análise de comprados assim que a OP é gerada por Daiane. Casos críticos (lead time longo ou itens indisponíveis) são sinalizados imediatamente para Daiane.</p>
+            <p>Yuri, com escalonamento para Daiane em casos críticos de prazo ou indisponibilidade.</p>
           </div>
           <div class="divider"></div>
           <div class="comp-header comp-fach2" style="margin-top:.75rem">
-            <h3>Fach 2 — Matéria-prima (chapas, tubos, barras e perfis)</h3>
+            <h3>Fach 2 — Análise de Matéria-prima</h3>
             <p>Materiais brutos usados no corte, dobra e usinagem. A análise é feita antes de iniciar a programação da semana, garantindo que a fábrica não pare por falta de material.</p>
           </div>
           <div class="card">
             <p class="section-label" style="margin-bottom:.5rem">Como analisar — passo a passo</p>
             <ul class="step-list teal">
-              <li><div><strong>Receber a lista de peças da semana (séries 300 e 20)</strong><br>Com base na programação semanal, levantar todos os roteiros de fabricação que entrarão em produção. Identificar quais materiais brutos cada peça consome (tipo, espessura, bitola, dimensão).</div></li>
-              <li><div><strong>Consolidar o consumo total de matéria-prima</strong><br>Somar o total de cada material necessário para a semana. Exemplo: "preciso de 12 chapas 3mm, 4 barras redondas 50mm e 6 metros de tubo 2". Planilha simples — uma linha por material.</div></li>
-              <li><div><strong>Verificar o estoque físico de MP</strong><br>Conferir o estoque real no almoxarifado — peso, comprimento ou quantidade, conforme o material. Se o ERP não for confiável, a conferência física semanal é obrigatória.</div></li>
-              <li><div><strong>Calcular a necessidade de reposição</strong><br>Necessidade = consumo da semana menos estoque disponível. Considerar também o estoque mínimo de segurança (ex: sempre manter 2 chapas de cada tipo mais consumido como reserva).</div></li>
-              <li><div><strong>Gerar a solicitação de compra de MP</strong><br>Emitir com: tipo e especificação do material, quantidade, unidade (kg, metro, unidade), data de entrega necessária e referência das OPs que dependem desse material.</div></li>
-              <li><div><strong>Acompanhar o recebimento antes do início da produção</strong><br>Se o material não chegar no prazo, Carmen deve replanejar a sequência de produção da semana e comunicar a Daiane para ajustar prioridades de montagem.</div></li>
-            </ul>
+              <li><div>Identificar, a partir dos pedidos e ordens de produção, os itens fabricados internamente que precisarão entrar na programação.</div></li>
+              <li><div>Filtrar os itens da linha 320 que demandam fabricação interna.</div></li>
+              <li><div>Verificar quais itens já estão cobertos pelo saldo do kanban e quais precisarão ser fabricados.</div></li>
+              <li><div>Explodir os itens não cobertos até o nível de matéria-prima necessária para fabricação.</div></li>
+              <li><div>Consolidar a necessidade total de matéria-prima da semana, agrupando materiais iguais.</div></li>
+              <li><div>Verificar no ERP a disponibilidade dos materiais necessários.</div></li>
+              <li><div>Quando necessário, complementar a análise com conferência física dos materiais com baixa confiabilidade de saldo.</div></li>
+              <li><div>Gerar a solicitação de compra apenas da matéria-prima não coberta para atendimento da programação.</div></li>
+              <li><div>Acompanhar os materiais críticos antes do início da produção e sinalizar necessidade de replanejamento, quando houver risco de falta.</div></li>
           </div>
           <div class="alert-box">
-            <h4>Frequência e momento ideal</h4>
-            <p>A análise de MP deve ser feita toda <strong>sexta-feira à tarde</strong> para a semana seguinte — ou seja, antes de a programação ser travada na segunda. Assim há tempo hábil para acionar o fornecedor caso falte material.</p>
+            <h4>Quando Reaalizar</h4>
+            <p>Toda sexta-feira à tarde, com base na programação da semana seguinte, para antecipar faltas antes do travamento da programação.</p>
           </div>
           <div class="card">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3>Responsável</h3><span class="who who-c">Carmen</span></div>
@@ -122,10 +124,9 @@ const S = [
         </div>
       `
       },
-      { t: 'Treinar Yuri no cálculo de necessidade líquida: quantidade da LM menos estoque disponível', w: 'y' },
+      { t: 'Treinar Yuri para inserir ponto de pedido, lote econômico de compra e lead time de ressuprimento dos itens comerciais, com base na classificação ABC, custo unitário e histórico de consumo.', w: 'y' },
       { t: 'Fach 2: implantar análise de matéria-prima toda sexta-feira à tarde', w: 'c' },
-      { t: 'Configurar planilha Google Sheets de controle de compras (uma para cada fábrica)', w: 'eq' },
-      { t: 'Definir regra: item com risco de atraso vai direto para Daiane no mesmo dia', w: 'd' },
+      { t: 'Definir regra: item com risco de ruptura que impacte a montagem vai para Daiane no mesmo dia, para reprogramação, com registro do item faltante, código e previsão de ressuprimento, avaliando se deve virar item Kanban.', w: 'd' },
     ]
   },
   {
@@ -150,30 +151,26 @@ const S = [
           <p class="section-label" style="margin-top:.25rem">Apontamento simplificado</p>
           <div class="card">
             <h3>O que registrar — só o essencial</h3>
-            <p style="margin-bottom:12px; font-size:13px; color:var(--text-2);">O apontamento não precisa ser complexo. Objetivo neste momento: saber o que foi produzido e dar baixa no material. Nada mais.</p>
+            <p style="margin-bottom:12px; font-size:13px; color:var(--text-2);">O apontamento não precisa ser complexo. Objetivo neste momento: registrar início e fim de cada etapa de produção para comparar o realizado com o Gantt planejado.</p>
             <div style="display:flex;flex-direction:column;gap:8px">
               <div style="display:flex;gap:10px;align-items:center;padding:8px;background:var(--surface-2);border-radius:var(--radius-sm)">
                 <span style="font-size:16px;min-width:24px;text-align:center;font-weight:bold;">1</span>
-                <div><p style="font-size:13px;font-weight:600;color:var(--text);margin:0">Item entrou em produção</p><p style="font-size:12px;color:var(--text-2);margin:0">Número da OP + data de início</p></div>
+                <div><p style="font-size:13px;font-weight:600;color:var(--text);margin:0">PV entrou em produção</p><p style="font-size:12px;color:var(--text-2);margin:0">Etapa do pedido + data de início</p></div>
               </div>
               <div style="display:flex;gap:10px;align-items:center;padding:8px;background:var(--surface-2);border-radius:var(--radius-sm)">
                 <span style="font-size:16px;min-width:24px;text-align:center;font-weight:bold;">2</span>
-                <div><p style="font-size:13px;font-weight:600;color:var(--text);margin:0">Item foi concluído</p><p style="font-size:12px;color:var(--text-2);margin:0">OP + data de conclusão + quantidade produzida</p></div>
-              </div>
-              <div style="display:flex;gap:10px;align-items:center;padding:8px;background:var(--surface-2);border-radius:var(--radius-sm)">
-                <span style="font-size:16px;min-width:24px;text-align:center;font-weight:bold;">3</span>
-                <div><p style="font-size:13px;font-weight:600;color:var(--text);margin:0">Material baixado</p><p style="font-size:12px;color:var(--text-2);margin:0">Confirmar saída do material do estoque</p></div>
+                <div><p style="font-size:13px;font-weight:600;color:var(--text);margin:0">Etapa do PV concluído</p><p style="font-size:12px;color:var(--text-2);margin:0">Etapa do pedido + data de conclusão + quantidade produzida</p></div>
               </div>
             </div>
-            <p style="font-size:12px;color:var(--text-3);margin-top:12px;padding-top:12px;border-top:0.5px solid var(--border)">Ferramenta sugerida: Google Forms no celular. O operador preenche em menos de 1 minuto. Alimenta uma planilha automaticamente.</p>
+            <p style="font-size:12px;color:var(--text-3);margin-top:12px;padding-top:12px;border-top:0.5px solid var(--border)">Ferramenta sugerida: Planejador de PCP.</p>
           </div>
         </div>
       `
       },
-      { t: 'Configurar planilha de programação semanal da Fach 2 no Google Sheets — Carmen', w: 'c' },
-      { t: 'Configurar planilha de programação semanal da Fach 1 no Google Sheets — Yuri', w: 'y' },
-      { t: 'Realizar primeiro ciclo de programação sem alterações não autorizadas', w: 'eq' },
-      { t: 'Auditar na visita seguinte: quantas OPs saíram da sequência programada e por quê', w: 'd' },
+      { t: 'Configurar planilha de programação semanal de fabricação da Fach 2 no Planejador PCP — Carmen', w: 'c' },
+      { t: 'Configurar planilha de programação semanal de montagem da Fach 1 no Planejador PCP — Yuri', w: 'y' },
+      { t: 'Validar ciclos de programação sem alterações não autorizadas', w: 'eq' },
+
     ]
   },
   {
@@ -314,7 +311,7 @@ function initData() {
 
   const syncStatusEl = document.getElementById('sync-status');
   if (syncStatusEl) syncStatusEl.textContent = "🏠 Armazenamento Local";
-  
+
   render();
 }
 
@@ -339,9 +336,9 @@ function toggleTask(sid, tid, e) {
 // Funções de backup local completo (Responsabilidades + Checks)
 function exportState() {
   const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state));
-  const dlAnchorElem = document.createElement('a'); 
-  dlAnchorElem.setAttribute("href", dataStr); 
-  dlAnchorElem.setAttribute("download", "pcp_backup_completo.json"); 
+  const dlAnchorElem = document.createElement('a');
+  dlAnchorElem.setAttribute("href", dataStr);
+  dlAnchorElem.setAttribute("download", "pcp_backup_completo.json");
   dlAnchorElem.click();
 }
 
@@ -354,11 +351,11 @@ function importState(e) {
       const parsed = JSON.parse(evt.target.result);
       if (parsed.resp) state.resp = parsed.resp;
       if (parsed.chk) state.chk = parsed.chk;
-      
+
       localStorage.setItem('satiro_resp_state', JSON.stringify(state.resp));
       localStorage.setItem('pcp_chk_state', JSON.stringify(state.chk));
-      
-      render(); 
+
+      render();
       alert('Backup restaurado com sucesso!');
     } catch (err) { alert('Erro ao importar arquivo JSON inválido.'); }
   };
@@ -375,7 +372,7 @@ function switchMainTab(tabId, btnContext) {
   btnContext.classList.add('active');
 
   const titleEl = document.getElementById('dynamic-title');
-  if (tabId === 'treinamento') titleEl.innerHTML = 'TREINAMENTO<br>PCP';
+  if (tabId === 'treinamento') titleEl.innerHTML = 'PLANO DE IMPLANTAÇÃO<br>PCP';
   else if (tabId === 'pendencias') { titleEl.innerHTML = 'CONTROLE DE<br>PENDÊNCIAS'; renderPendencias(document.getElementById('filter-who').value); }
   else titleEl.innerHTML = 'TRILHA DE<br>IMPLANTAÇÃO';
 }
@@ -534,9 +531,9 @@ function drop(ev, targetRole) {
 
 function render() {
   const c = document.getElementById('stages-container');
-  if(!c) return;
+  if (!c) return;
   c.innerHTML = '';
-  
+
   S.forEach(s => {
     const tasksHtml = s.tasks.map((task, i) => {
       const isDynamic = task.dynamicRef === 'responsabilidades';
