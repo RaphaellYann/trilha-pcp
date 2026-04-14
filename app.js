@@ -49,12 +49,11 @@ const S = [
       { t: 'Apresentar o fluxo do pedido (Fach 1 → Fach 2 → Fach 1) para as 3 pessoas', w: 'eq', details: generateFluxoHTML },
       { t: 'Conferir pedidos liberados que precisam ser programados', w: 'd' },
       { t: 'Definir formalmente os papéis: Daiane (carteira), Yuri (montagem e comprados), Carmen (fabricação e kanban)', w: 'eq', dynamicRef: 'responsabilidades' },
-      { t: 'Apresentar a lógica do kanban e o impacto esperado na redução de OPs', w: 'eq' },
-      { t: 'Levantar lista preliminar de itens série 320 que entrarão no kanban', w: 'c' },
     ]
   },
   {
     id: 2, name: 'Kanban 320 — Fach 2', tasks: [
+      { t: 'Apresentar a lógica do kanban e o impacto esperado na redução de OPs', w: 'eq' },
       { t: 'Identificar todos os itens 320 que se repetem entre pedidos com código e frequência', w: 'c' },
       { t: 'Calcular ponto de reposição e quantidade do lote por item', w: 'c' },
       { t: 'Criar os cartões físicos do kanban (etiqueta com código, descrição e quantidade)', w: 'c' },
@@ -267,7 +266,7 @@ const S = [
       { t: 'Reunião de fechamento semanal (sexta) operando de forma autônoma — Daiane conduz', w: 'd' },
       { t: 'Kanban 320 operando de forma estável com reposição sem emissão de OP', w: 'c' },
       { t: 'Kanban 220 operando com Yuri acionando e Carmen gerenciando', w: 'c' },
-      { t: 'Pedidos com prazo de conclusão previsível comunicado ao cliente', w: 'd' },
+      { t: 'Pedidos com prazo de entrega prevista mais próximo do real', w: 'd' },
     ]
   }
 ];
