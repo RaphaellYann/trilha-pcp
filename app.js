@@ -184,10 +184,10 @@ const S = [
   {
     id: 6, name: 'Kanban 220 — Fach 1', tasks: [
       { t: 'Levantar os conjuntos 220 (séries 420, 520, 500) que entrarão no kanban', w: 'c' },
-      { t: 'Carmen define cartões, pontos de reposição e quantidades sem envolvimento de Yuri', w: 'c' },
+      { t: 'Carmen define cartões, pontos de reposição e quantidades.', w: 'c' },
       { t: 'Montar o quadro físico do kanban 220 na Fach 1', w: 'c' },
-      { t: 'Treinar Yuri para acionar os cartões corretamente: apenas retirar e entregar para Carmen', w: 'y' },
-      { t: 'Realizar primeiro ciclo do kanban 220 em operação com Carmen gerenciando', w: 'c' },
+      { t: 'Treinar Yuri para acionar os cartões.', w: 'y' },
+      { t: 'Realizar primeiro ciclo do kanban 220 em operaçã.', w: 'c' },
     ]
   },
   {
